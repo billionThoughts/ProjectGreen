@@ -1,9 +1,4 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class DataBase {
@@ -59,5 +54,29 @@ public class DataBase {
 	public void addUserAccount(UserAccount acc) {
 		userAccounts.add(acc);
 		this.userAccountsSerialization();
+	}
+	
+	public void signedInAccountSerialization(UserAccount signedInAccount) {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("signedInAccount.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(signedInAccount);
+			out.close();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("signedInAccount.ser File Not Found (signed in account serialization)");
+		} catch (IOException e) {
+			System.out.println("signedInAccount.ser IO Exception ? (signed in account serialization)");
+		}
+	}
+	
+	public boolean authentication(String username, String password) {
+		for(UserAccount acc : userAccounts) {
+			if(username.equals(acc.getUsername()) && password.equals(acc.getPassword())) {
+				signedInAccountSerialization(acc);
+				return true;
+			}
+		}
+		return false;
 	}
 }

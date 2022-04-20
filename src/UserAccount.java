@@ -19,6 +19,10 @@ public class UserAccount implements Serializable {
 		return username;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

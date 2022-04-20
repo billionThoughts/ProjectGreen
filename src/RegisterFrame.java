@@ -1,16 +1,29 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public class RegisterFrame extends JFrame {
 	private JPanel panel;
+	private JLabel titleLabel;
 	private JTextField firstNameField, lastNameField, emailField, usernameField, passwordField, confirmPasswordField;
-	private JButton registerButton;
+	private JButton registerButton, backButton;
 	private JCheckBox termsCheckBox;
 	
 	public RegisterFrame() {
 		panel = new JPanel();
+		
+		titleLabel = new JLabel("Register");
+		backButton = new JButton("Back");
+		
+		//Action listener for backButton
+		backButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new SignInFrame();
+				dispose();
+			}
+		});
 		
 		firstNameField = new JTextField("First name");
 		lastNameField = new JTextField("Last name");
@@ -44,7 +57,7 @@ public class RegisterFrame extends JFrame {
 							if(password.length() >= 8) {
 								UserAccount acc = new UserAccount(firstName, lastName, email, username, password);
 								db.addUserAccount(acc);
-								//new SignInFrame();
+								new SignInFrame();
 								dispose();
 							}
 							else JOptionPane.showMessageDialog(null, "Please enter a password at least 8 characters long", 
@@ -61,6 +74,8 @@ public class RegisterFrame extends JFrame {
 			}
 		});
 		
+		panel.add(backButton);
+		panel.add(titleLabel);
 		panel.add(firstNameField);
 		panel.add(lastNameField);
 		panel.add(emailField);
