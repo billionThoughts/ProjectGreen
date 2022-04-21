@@ -1,43 +1,64 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class SignInFrame extends JFrame {
-	private JPanel panel, fieldsPanel, buttonsPanel, mainPanel;
-	private JLabel titleLabel, usernameLabel, passwordLabel;
+	private JPanel panel;
+	private JLabel signInLabel, ecoSystemsLabel, imageLabel, usernameLabel, passwordLabel;
 	private JTextField usernameField, passwordField;
 	private JButton signInButton, registerButton;
 	
 	public SignInFrame() {
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		titleLabel = new JLabel("EcoSystems");
-		titleLabel.setPreferredSize(new Dimension(300,50));
-		titleLabel.setFont(new Font("Comic Sans", Font.BOLD, 35));
+		signInLabel = new JLabel("Sign In");
+		signInLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		signInLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		signInLabel.setBounds(0, 11, 223, 23);
+		panel.add(signInLabel);
 		
-		//fields panel
-		fieldsPanel = new JPanel();
+		ecoSystemsLabel = new JLabel("EcoSystems");
+		ecoSystemsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		ecoSystemsLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ecoSystemsLabel.setForeground(new Color(0, 102, 0));
+		ecoSystemsLabel.setBounds(706, 477, 121, 14);
+		panel.add(ecoSystemsLabel);
+		
+		imageLabel = new JLabel(new ImageIcon(getClass().getResource("/resources/image.png")));
+		imageLabel.setBounds(250, 5, 605, 502);
+		panel.add(imageLabel);
+		
 		usernameLabel = new JLabel("Username");
-		usernameField = new JTextField("username");
-		usernameField.setPreferredSize(new Dimension(100,20));
+		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		usernameLabel.setBounds(53, 70, 66, 14);
+		panel.add(usernameLabel);
+		
+		usernameField = new JTextField();
+		usernameField.setHorizontalAlignment(SwingConstants.CENTER);
+		usernameField.setBounds(53, 95, 121, 38);
+		panel.add(usernameField);
+		usernameField.setColumns(10);
+		
 		passwordLabel = new JLabel("Password");
-		passwordField = new JTextField("password");
-		passwordField.setPreferredSize(new Dimension(100,20));
+		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		passwordLabel.setBounds(53, 159, 66, 14);
+		panel.add(passwordLabel);
 		
-		fieldsPanel.add(usernameLabel);
-		fieldsPanel.add(usernameField);
-		fieldsPanel.add(passwordLabel);
-		fieldsPanel.add(passwordField);
+		passwordField = new JTextField();
+		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordField.setBounds(53, 184, 121, 38);
+		panel.add(passwordField);
+		passwordField.setColumns(10);
 		
-		fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.Y_AXIS));
-		
-		//buttons panel
-		buttonsPanel = new JPanel();
-		signInButton = new JButton("Sign In");
-		signInButton.setAlignmentX(CENTER_ALIGNMENT);
+		signInButton = new JButton("Sing in");
+		signInButton.setBackground(new Color(190, 235, 113));
+		signInButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		signInButton.setBounds(69, 252, 89, 23);
+		panel.add(signInButton);
 		
 		//Action listener for signInButton
 		signInButton.addActionListener(new ActionListener() {
@@ -45,7 +66,7 @@ public class SignInFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				DataBase db = new DataBase();
-				
+						
 				String username = usernameField.getText();
 				String password = passwordField.getText();
 
@@ -58,8 +79,12 @@ public class SignInFrame extends JFrame {
 			}
 		});
 		
+		
 		registerButton = new JButton("Register");
-		registerButton.setAlignmentX(CENTER_ALIGNMENT);
+		registerButton.setBackground(new Color(190, 235, 113));
+		registerButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		registerButton.setBounds(69, 286, 89, 23);
+		panel.add(registerButton);
 		
 		//Action listener for registerButton
 		registerButton.addActionListener(new ActionListener() {
@@ -71,25 +96,11 @@ public class SignInFrame extends JFrame {
 			}
 		});
 		
-		buttonsPanel.add(signInButton);
-		buttonsPanel.add(registerButton);
-		
-		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
-		
-		//main panel
-		mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
-		
-		mainPanel.add(fieldsPanel, BorderLayout.CENTER);
-		mainPanel.add(buttonsPanel,BorderLayout.SOUTH);
-		
-		panel.add(titleLabel);
-		panel.add(mainPanel);
-		
 		this.setContentPane(panel);
 		
-		this.setSize(800, 550);
-		this.setTitle("Register Screen");
+		this.setSize(870, 545);
+		this.setResizable(false);
+		this.setTitle("Sign In Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
