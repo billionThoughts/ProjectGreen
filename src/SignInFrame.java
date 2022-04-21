@@ -50,7 +50,7 @@ public class SignInFrame extends JFrame {
 				String password = passwordField.getText();
 
 				if(db.authentication(username, password)) {
-					//new HomeFrame();
+					new HomeFrame();
 					dispose();
 				}
 				else JOptionPane.showMessageDialog(null, "Wrong Username or Password", 
