@@ -68,4 +68,8 @@ public class UserAccount implements Serializable {
 	public void buyTicket(Ticket t) {
 		this.tokens -= t.getCost();
 	}
+	
+	public void donateTokens(int amount) {
+		this.tokens -= amount;
+	}
 }

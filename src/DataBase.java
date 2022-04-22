@@ -5,6 +5,7 @@ public class DataBase {
 	private ArrayList<UserAccount> userAccounts;
 	private ArrayList<Material> materials;
 	private ArrayList<Ticket> tickets;
+	private int donations;
 	
 	public DataBase() {
 		if(!userAccountsDeserialization()) {
@@ -16,7 +17,13 @@ public class DataBase {
 		if(!ticketsDeserialization()) {
 			tickets = new ArrayList<Ticket>();
 		}
-		
+		if(!donationsDeserialization()) {
+			donations = 0;
+		}
+	}
+	
+	public int getDonations() {
+		return donations;
 	}
 	
 	public ArrayList<Material> getMaterials() {
@@ -207,5 +214,42 @@ public class DataBase {
 	public void addTicket(Ticket t) {
 		tickets.add(t);
 		ticketsSerialization();
+	}
+	
+	public boolean donationsDeserialization() {
+		try {
+			FileInputStream fileIn = new FileInputStream("donations.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			donations = (int) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void donationsSerialization() {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("donations.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(donations);
+			out.close();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("donations.ser File Not Found (DataBase donations serialization)");
+		} catch (IOException e) {
+			System.out.println("donations.ser IO Exception (DataBase donations serialization)");
+		}
+	}
+	
+	public void tokenDonation(int amount, UserAccount signedInAccount) {
+		signedInAccount.donateTokens(amount);
+		this.donations += amount;
+		this.donationsSerialization();
 	}
 }

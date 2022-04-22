@@ -88,7 +88,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new DonationFrame();
+				new DonateFrame();
 				dispose();
 			}
 		});
