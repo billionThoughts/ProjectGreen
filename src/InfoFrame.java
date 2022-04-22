@@ -48,10 +48,10 @@ public class InfoFrame extends JFrame {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		this.setContentPane(panel);
-		
-		this.setVisible(true);
-		this.setSize(700, 500);
+		this.setSize(800, 550);
 		this.setTitle("Info Screen");
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	

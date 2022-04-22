@@ -97,7 +97,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new StatisticsFrame();
+				new StatisticsFrame();
 				dispose();
 			}
 			

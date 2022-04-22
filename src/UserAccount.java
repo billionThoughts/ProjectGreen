@@ -30,6 +30,10 @@ public class UserAccount implements Serializable {
 		}
 	}
 	
+	public HashMap<Material, Integer> getRecycled() {
+		return recycled;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

@@ -85,9 +85,10 @@ public class RedemptFrame extends JFrame {
 		
 		this.setContentPane(panel);
 		
-		this.setVisible(true);
-		this.setSize(700, 500);
+		this.setSize(800, 550);
 		this.setTitle("Redempt Screen");
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
