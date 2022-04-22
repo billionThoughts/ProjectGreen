@@ -3,6 +3,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		//Initializations
+		
+		/*
+		
 		DataBase db = new DataBase();
 		
 		//Initialization of materials.ser
@@ -28,6 +32,8 @@ public class Main {
 		db.addTicket(cinema);
 		db.addTicket(transportation);
 		db.addTicket(bike);
+		
+		*/
 
 		new SignInFrame();
 	}

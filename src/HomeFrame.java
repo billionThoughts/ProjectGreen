@@ -52,7 +52,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new InfoFrame();
+				new InfoFrame();
 				dispose();
 			}
 		});
