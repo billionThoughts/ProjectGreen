@@ -57,4 +57,15 @@ public class UserAccount implements Serializable {
 			}
 		}
 	}
+	
+	public boolean isTicketAffordable(Ticket t) {
+		boolean flag = false;
+		if(tokens >= t.getCost())
+			flag = true;
+		return flag;
+	}
+	
+	public void buyTicket(Ticket t) {
+		this.tokens -= t.getCost();
+	}
 }
