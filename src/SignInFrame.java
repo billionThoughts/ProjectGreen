@@ -7,7 +7,8 @@ import javax.swing.*;
 public class SignInFrame extends JFrame {
 	private JPanel panel;
 	private JLabel signInLabel, ecoSystemsLabel, imageLabel, usernameLabel, passwordLabel;
-	private JTextField usernameField, passwordField;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
 	private JButton signInButton, registerButton;
 	
 	public SignInFrame() {
@@ -28,7 +29,7 @@ public class SignInFrame extends JFrame {
 		ecoSystemsLabel.setBounds(706, 477, 121, 14);
 		panel.add(ecoSystemsLabel);
 		
-		imageLabel = new JLabel(new ImageIcon(getClass().getResource("/resources/image.png")));
+		imageLabel = new JLabel(new ImageIcon(getClass().getResource("/images/image.png")));
 		imageLabel.setBounds(250, 5, 605, 502);
 		panel.add(imageLabel);
 		
@@ -48,13 +49,13 @@ public class SignInFrame extends JFrame {
 		passwordLabel.setBounds(53, 159, 66, 14);
 		panel.add(passwordLabel);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordField.setBounds(53, 184, 121, 38);
 		panel.add(passwordField);
 		passwordField.setColumns(10);
 		
-		signInButton = new JButton("Sing in");
+		signInButton = new JButton("Sign in");
 		signInButton.setBackground(new Color(190, 235, 113));
 		signInButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		signInButton.setBounds(69, 252, 89, 23);
