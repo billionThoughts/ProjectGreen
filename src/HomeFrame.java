@@ -79,7 +79,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new RedemptFrame();
+				//new UseTokensFrame();
 				dispose();
 			}
 		});

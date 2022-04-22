@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class DataBase {
 	private ArrayList<UserAccount> userAccounts;
 	private ArrayList<Material> materials;
-	private ArrayList<Ticket> tickets;
 	
 	public DataBase() {
 		if(!userAccountsDeserialization()) {
@@ -12,9 +11,6 @@ public class DataBase {
 		}
 		if(!materialsDeserialization()) {
 			materials = new ArrayList<Material>();
-		}
-		if(!ticketsDeserialization()) {
-			tickets = new ArrayList<Ticket>();
 		}
 		
 	}
@@ -30,15 +26,6 @@ public class DataBase {
 				m=material;
 		}
 		return m;
-	}
-	
-	public Ticket getSpecificTicket(String name) {
-		Ticket t = null;
-		for(Ticket ticket : tickets) {
-			if(name.equals(ticket.getName()))
-				t=ticket;
-		}
-		return t;
 	}
 	
 	public boolean userAccountsDeserialization() {
@@ -164,48 +151,12 @@ public class DataBase {
 		} catch (FileNotFoundException e) {
 			System.out.println("materials.ser File Not Found (DataBase materials serialization)");
 		} catch (IOException e) {
-			System.out.println("materials.ser IO Exception (DataBase materials serialization");
+			System.out.println("IO Exception ?");
 		}
 	}
 	
 	public void addMaterial(Material m) {
 		materials.add(m);
 		materialsSerialization();
-	}
-	
-	public boolean ticketsDeserialization() {
-		try {
-			FileInputStream fileIn = new FileInputStream("tickets.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			tickets = (ArrayList<Ticket>) in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (FileNotFoundException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
-		return true;
-	}
-	
-	public void ticketsSerialization() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("tickets.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(tickets);
-			out.close();
-			fileOut.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("tickets.ser File Not Found (DataBase tickets serialization)");
-		} catch (IOException e) {
-			System.out.println("tickets.ser IO Exception (DataBase tickets serialization)");
-		}
-	}
-	
-	public void addTicket(Ticket t) {
-		tickets.add(t);
-		ticketsSerialization();
 	}
 }

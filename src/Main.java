@@ -17,17 +17,6 @@ public class Main {
 		db.addMaterial(glass);
 		db.addMaterial(metal);
 		db.addMaterial(organic);
-		
-		//Initialization of tickets
-		Ticket parking = new Ticket("Parking", 3000);
-		Ticket cinema = new Ticket("Cinema", 8000);
-		Ticket transportation = new Ticket("Public Transportation", 5000);
-		Ticket bike = new Ticket("Rent a Bike", 6500);
-		
-		db.addTicket(parking);
-		db.addTicket(cinema);
-		db.addTicket(transportation);
-		db.addTicket(bike);
 
 		new SignInFrame();
 	}
