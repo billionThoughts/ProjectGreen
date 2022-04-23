@@ -117,7 +117,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new BorrowFrame();
+				new BorrowFrame();
 				dispose();
 			}
 			

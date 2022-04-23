@@ -109,10 +109,11 @@ public class UserAccount implements Serializable {
 		else if(t instanceof Lending) {
 			this.tokens -= t.getAmount();
 		}
+		*/
 		else if(t instanceof Borrowing) {
 			this.tokens += t.getAmount();
 		}
-		*/
+		
 		this.addTransaction(t);
 	}
 	
@@ -120,21 +121,35 @@ public class UserAccount implements Serializable {
 		if(t instanceof Staking) {
 			this.tokens += t.payment();
 		}
-		removeTransaction(t);
-		return t.payment();
-		
-		/*
-		else if(type.equals("PAY BACK")) {
-			if(this.tokens >= ((Borrowing) t).getRealTotalAmount()) {
-				this.tokens -= ((Borrowing) t).getRealTotalAmount();
-				amount = ((Borrowing) t).getRealTotalAmount();
-			}
-			else JOptionPane.showMessageDialog(null, "You don't have enough tokens");
+		else if(t instanceof Borrowing) {
+			this.tokens -= t.payment();
 		}
+		/*
 		else if(type.equals("WITHDRAW")) {
 			this.tokens += t.getTotalAmount();
 			amount = t.getTotalAmount();
 		}
 		*/
+		
+		removeTransaction(t);
+		
+		return t.payment();
+	}
+	
+	public int calculateTotalBorrowings() {
+		int sum = 0;
+		for(Transaction t : transactions) {
+			if(t instanceof Borrowing) {
+				sum+=t.getAmount();
+			}
+		}
+		return sum;
+	}
+	
+	public boolean isPayBackAffordable(Transaction t) {
+		if(tokens >= t.payment()) {
+			return true;
+		}
+		return false;
 	}
 }
