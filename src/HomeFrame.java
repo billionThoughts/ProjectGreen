@@ -107,6 +107,7 @@ public class HomeFrame extends JFrame {
 		organicButton.addActionListener(recyclingButtonListener);
 		
 		infoButton = new JButton("Info");
+		infoButton.setBackground(new Color(255, 153, 102));
 		infoButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		infoButton.setBounds(736, 468, 67, 23);
 		panel.add(infoButton);
@@ -148,7 +149,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new StakeFrame();
+				new StakeFrame();
 				dispose();
 			}
 		});
@@ -164,7 +165,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new BorrowFrame();
+				new BorrowFrame();
 				dispose();
 			}
 		});
@@ -180,7 +181,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new LendFrame();
+				new LendFrame();
 				dispose();
 			}
 		});
@@ -264,7 +265,6 @@ class FirstRecycleFrame extends JFrame {
 		panel.setLayout(null);
 		
 		titleLabel = new JLabel("Recycle");
-		//titleLabel.setIcon(null);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		titleLabel.setBounds(0, 11, 827, 36);
@@ -336,7 +336,7 @@ class SecondRecycleFrame extends JFrame {
 	private Timer timer;
 	
 	public SecondRecycleFrame(Material m) {	
-		timer = new Timer(5000, new ActionListener() {
+		timer = new Timer(3000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				secondLabel.setText("Materials accepted.");
