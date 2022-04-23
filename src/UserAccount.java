@@ -105,15 +105,12 @@ public class UserAccount implements Serializable {
 		if(t instanceof Staking) {
 			this.tokens -= t.getAmount();
 		}
-		/*
 		else if(t instanceof Lending) {
 			this.tokens -= t.getAmount();
 		}
-		*/
 		else if(t instanceof Borrowing) {
 			this.tokens += t.getAmount();
 		}
-		
 		this.addTransaction(t);
 	}
 	
@@ -124,12 +121,9 @@ public class UserAccount implements Serializable {
 		else if(t instanceof Borrowing) {
 			this.tokens -= t.payment();
 		}
-		/*
-		else if(type.equals("WITHDRAW")) {
-			this.tokens += t.getTotalAmount();
-			amount = t.getTotalAmount();
+		else if(t instanceof Lending) {
+			this.tokens += t.payment();
 		}
-		*/
 		
 		removeTransaction(t);
 		

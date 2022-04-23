@@ -127,7 +127,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new LendFrame();
+				new LendFrame();
 				dispose();
 			}
 			
