@@ -1,25 +1,36 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class InfoFrame extends JFrame {
-	private JPanel panel, titlePanel, tablePanel;
-	private JLabel titleLabel;
+	private JPanel panel;
+	private JLabel titleLabel, backgroundIconLabel;
 	private JButton backButton;
 	private JTable infoTable;
 	private JScrollPane scrollPane;
 	
 	public InfoFrame() {
-
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		//title panel
-		titlePanel = new JPanel();
-		backButton = new JButton("Back");
 		titleLabel = new JLabel("Info");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setBounds(0, 11, 784, 36);
+		panel.add(titleLabel);
 		
+		backButton = new JButton("Home");
+		backButton.setBackground(new Color(255, 153, 102));
+		backButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		backButton.setBounds(10, 455, 97, 36);
+		panel.add(backButton);
+		
+		//ActionListeber for backButton
 		backButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -29,26 +40,22 @@ public class InfoFrame extends JFrame {
 			}
 		});
 		
-		titlePanel.add(backButton);
-		titlePanel.add(titleLabel);
-		
-		//table panel
-		tablePanel = new JPanel();
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(200, 150, 465, 103);
 		infoTable = new JTable(loadData());
 		infoTable.setEnabled(false);
+		scrollPane.setViewportView(infoTable);
+		//scrollPane.setPreferredSize(new Dimension(400, 103));
+		panel.add(scrollPane);
 		
-		scrollPane.getViewport().add(infoTable);
-		scrollPane.setPreferredSize(new Dimension(400, 103));
-		
-		tablePanel.add(scrollPane);
-		
-		panel.add(titlePanel);
-		panel.add(tablePanel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 860, 515);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
-		this.setSize(800, 550);
+		
+		this.setSize(870, 545);
+		this.setResizable(false);
 		this.setTitle("Info Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
