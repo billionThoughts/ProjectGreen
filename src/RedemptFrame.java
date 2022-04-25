@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -5,8 +7,8 @@ import javax.swing.*;
 
 public class RedemptFrame extends JFrame {
 	private UserAccount signedInAccount;
-	private JPanel panel, labelPanel, ticketsPanel, parkingPanel, cinemaPanel, transportationPanel, bikePanel;
-	private JLabel useLabel, parkingLabel, cinemaLabel, transportationLabel, bikeLabel;
+	private JPanel panel;
+	private JLabel titleLabel, parkingLabel, cinemaLabel, transportationLabel, bikeLabel, backgroundIconLabel;
 	private JButton homeButton, parkingButton, cinemaButton, transportationButton, bikeButton;
 	
 	public RedemptFrame() {
@@ -14,14 +16,22 @@ public class RedemptFrame extends JFrame {
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		//label panel
-		labelPanel = new JPanel();
-		homeButton = new JButton("Back");
-		useLabel = new JLabel("Use Tokens");
-		labelPanel.add(homeButton);
-		labelPanel.add(useLabel);
+		titleLabel = new JLabel("Use Tokens");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setBounds(0, 11, 827, 37);
+		panel.add(titleLabel);
 		
+		homeButton = new JButton("Home");
+		homeButton.setBackground(new Color(255, 153, 102));
+		homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		homeButton.setBounds(10, 455, 97, 36);
+		panel.add(homeButton);
+		
+		//ActionListener for homeButton
 		homeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -31,61 +41,68 @@ public class RedemptFrame extends JFrame {
 			}
 		});
 		
-		//tickets panel
-		ticketsPanel = new JPanel();
+		parkingLabel = new JLabel("Parking ................................................. 3000 Tokens");
+		parkingLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		parkingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		parkingLabel.setBounds(152, 110, 340, 37);
+		panel.add(parkingLabel);
+		
+		cinemaLabel = new JLabel("Cinema / Theater ................................ 8000 Tokens");
+		cinemaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cinemaLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cinemaLabel.setBounds(152, 186, 340, 37);
+		panel.add(cinemaLabel);
+		
+		transportationLabel = new JLabel("Public Transportation ......................... 5000 Tokens");
+		transportationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		transportationLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		transportationLabel.setBounds(152, 258, 340, 37);
+		panel.add(transportationLabel);
+		
+		bikeLabel = new JLabel("Rent a bike ........................................... 7500 Tokens");
+		bikeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		bikeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		bikeLabel.setBounds(152, 330, 340, 37);
+		panel.add(bikeLabel);
+		
 		TicketButtonActionListener listener = new TicketButtonActionListener();
 		
-		//parking panel
-		parkingPanel = new JPanel();
-		parkingLabel = new JLabel("Parking.....................................3000 Tokens");
 		parkingButton = new JButton("Claim");
+		parkingButton.setBackground(new Color(0, 204, 255));
+		parkingButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		parkingButton.setBounds(596, 110, 138, 37);
 		parkingButton.addActionListener(listener);
-
-		parkingPanel.add(parkingLabel);
-		parkingPanel.add(parkingButton);
+		panel.add(parkingButton);
 		
-		//cinema panel
-		cinemaPanel = new JPanel();
-		cinemaLabel = new JLabel("Cinema.....................................8000 Tokens");
 		cinemaButton = new JButton("Claim");
+		cinemaButton.setBackground(new Color(0, 204, 255));
+		cinemaButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cinemaButton.setBounds(596, 186, 138, 37);
 		cinemaButton.addActionListener(listener);
+		panel.add(cinemaButton);
 		
-		cinemaPanel.add(cinemaLabel);
-		cinemaPanel.add(cinemaButton);
-		
-		//transportation panel
-		transportationPanel = new JPanel();
-		transportationLabel = new JLabel("Public Transportation.............5000 Tokens");
 		transportationButton = new JButton("Claim");
+		transportationButton.setBackground(new Color(0, 204, 255));
+		transportationButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		transportationButton.setBounds(596, 258, 138, 37);
 		transportationButton.addActionListener(listener);
+		panel.add(transportationButton);
 		
-		transportationPanel.add(transportationLabel);
-		transportationPanel.add(transportationButton);
-		
-		//bike panel
-		bikePanel = new JPanel();
-		bikeLabel = new JLabel("Rent a Bike..............................6500 Tokens");
 		bikeButton = new JButton("Claim");
+		bikeButton.setBackground(new Color(0, 204, 255));
+		bikeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		bikeButton.setBounds(596, 330, 138, 37);
 		bikeButton.addActionListener(listener);
+		panel.add(bikeButton);
 		
-		bikePanel.add(bikeLabel);
-		bikePanel.add(bikeButton);
-		
-		ticketsPanel.add(parkingPanel);
-		ticketsPanel.add(cinemaPanel);
-		ticketsPanel.add(transportationPanel);
-		ticketsPanel.add(bikePanel);
-		
-		ticketsPanel.setLayout(new BoxLayout(ticketsPanel, BoxLayout.Y_AXIS));
-		
-		panel.add(labelPanel);
-		panel.add(ticketsPanel);
-		
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 880, 520);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
 		
-		this.setSize(800, 550);
+		this.setSize(870, 545);
+		this.setResizable(false);
 		this.setTitle("Redempt Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -129,17 +146,28 @@ public class RedemptFrame extends JFrame {
 }
 
 class QRFrame extends JFrame {
-	private JPanel panel, labelPanel, qrPanel;
-	private JLabel useLabel, qrLabel;
+	private JPanel panel;
+	private JLabel titleLabel, redemptLabel_1, redemptLabel_2, redemptLabel_3, redemptLabel_4, backgroundIconLabel;
 	private JButton homeButton;
+	private Timer timer;
 	
 	public QRFrame() {
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		labelPanel = new JPanel();
-		homeButton = new JButton("Back");
-		useLabel = new JLabel("Use Tokens");
+		titleLabel = new JLabel("Use Tokens");
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setBounds(0, 11, 827, 30);
+		panel.add(titleLabel);
 		
+		homeButton = new JButton("Home");
+		homeButton.setBackground(new Color(255, 153, 102));
+		homeButton.setBounds(10, 455, 97, 36);
+		panel.add(homeButton);
+		
+		//ActionListener for homeButton
 		homeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -147,25 +175,54 @@ class QRFrame extends JFrame {
 				new HomeFrame();
 				dispose();
 			}
-			
 		});
 		
-		labelPanel.add(homeButton);
-		labelPanel.add(useLabel);
+		redemptLabel_1 = new JLabel("Please wait");
+		redemptLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		redemptLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		redemptLabel_1.setBounds(115, 95, 84, 23);
+		panel.add(redemptLabel_1);
 		
-		qrPanel = new JPanel();
-		qrLabel = new JLabel("Congratulations, scan the QR Code to receive your ticket");
+		redemptLabel_2 = new JLabel("...");
+		redemptLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		redemptLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		redemptLabel_2.setBounds(197, 95, 20, 23);
+		panel.add(redemptLabel_2);
 		
-		qrPanel.add(qrLabel);
+		redemptLabel_3 = new JLabel("");
+		redemptLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		redemptLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		redemptLabel_3.setBounds(115, 152, 341, 23);
+		panel.add(redemptLabel_3);
 		
-		panel.add(labelPanel);
-		panel.add(qrPanel);
+		redemptLabel_4 = new JLabel("");
+		redemptLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		redemptLabel_4.setBounds(368, 291, 84, 84);
+		panel.add(redemptLabel_4);
+		
+		timer = new Timer(3000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				redemptLabel_1.setText("");
+				redemptLabel_2.setText("");
+				redemptLabel_3.setText("Congratulations, scan the QR code to receive your ticket.");
+				redemptLabel_4.setIcon(new ImageIcon(getClass().getResource("/images/barcode.gif")));
+			}
+		});
+		
+		timer.start();
+		
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 860, 515);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
 		
+		this.setSize(870, 545);
+		this.setResizable(false);
+		this.setTitle("Redempt Screen");
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		this.setSize(700, 400);
-		this.setTitle("QR Screen");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 }
