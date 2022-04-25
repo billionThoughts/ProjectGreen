@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -8,9 +10,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class LendFrame extends JFrame {
 	private UserAccount signedInAccount;
-	private JPanel panel, titlePanel, amountApyPanel, lendPanel, lendingsTablePanel, lendingsPanel;
-	private JLabel titleLabel, lendLabel, amountLabel, apyLabel, depositsLabel;
-	private JButton backButton, depositButton, withdrawButton;
+	private JPanel panel;
+	private JLabel titleLabel, lendLabel, amountLabel, apyLabel, depositsLabel, backgroundIconLabel;
+	private JButton homeButton, depositButton, withdrawButton;
 	private JTextField amountField;
 	private JTable lendingsTable;
 	private JScrollPane scrollPane;
@@ -22,12 +24,22 @@ public class LendFrame extends JFrame {
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		//title panel
-		titlePanel = new JPanel();
 		titleLabel = new JLabel("Lend Tokens");
-		backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setBounds(0, 11, 827, 36);
+		panel.add(titleLabel);
+		
+		homeButton = new JButton("Home");
+		homeButton.setBackground(new Color(255, 153, 102));
+		homeButton.setBounds(10, 455, 97, 36);
+		panel.add(homeButton);
+		
+		//ActionListener for homeButton
+		homeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -36,22 +48,33 @@ public class LendFrame extends JFrame {
 			}
 		});
 		
-		titlePanel.add(titleLabel);
-		titlePanel.add(backButton);
-		
-		//amountField - apyLabel panel
-		amountApyPanel = new JPanel();
-		amountField = new JTextField("amount");
-		apyLabel = new JLabel("19.2% APY");
-		
-		amountApyPanel.add(amountField);
-		amountApyPanel.add(apyLabel);
-		
-		//lend panel
-		lendPanel = new JPanel();
 		lendLabel = new JLabel("Lend your tokens to earn passive rewards");
+		lendLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lendLabel.setBounds(91, 94, 253, 14);
+		panel.add(lendLabel);
+		
 		amountLabel = new JLabel("AMOUNT TO DEPOSIT");
-		depositButton = new JButton("DEPOSIT");
+		amountLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		amountLabel.setBounds(91, 143, 161, 14);
+		panel.add(amountLabel);
+		
+		amountField = new JTextField();
+		amountField.setBounds(91, 158, 190, 20);
+		amountField.setColumns(10);
+		panel.add(amountField);
+		
+		apyLabel = new JLabel("19,2% APY");
+		apyLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		apyLabel.setBounds(291, 158, 86, 20);
+		panel.add(apyLabel);
+		
+		depositButton = new JButton("Deposit");
+		depositButton.setBackground(new Color(0, 204, 255));
+		depositButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		depositButton.setBounds(604, 143, 137, 49);
+		panel.add(depositButton);
+		
+		//ActionListener for depositButton
 		depositButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -70,17 +93,12 @@ public class LendFrame extends JFrame {
 			}
 		});
 		
-		lendPanel.add(lendLabel);
-		lendPanel.add(amountLabel);
-		lendPanel.add(amountApyPanel);
-		lendPanel.add(depositButton);
-		
-		//lendingsTable panel
-		lendingsTablePanel = new JPanel();
 		depositsLabel = new JLabel("CURRENT DEPOSITS");
+		depositsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		depositsLabel.setBounds(91, 261, 161, 14);
+		panel.add(depositsLabel);
+
 		scrollPane = new JScrollPane();
-		
-		//create lendings table
 		lendingsTable = new JTable(this.loadData());
 		//lending selection
 		lendingsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -89,17 +107,16 @@ public class LendFrame extends JFrame {
 	    listModel.addListSelectionListener(listListener);
 		
 		scrollPane.getViewport().add(lendingsTable);
-		scrollPane.setMaximumSize(new Dimension(800, 103));
+		scrollPane.setBounds(91, 281, 349, 103);
+		panel.add(scrollPane);
 		
-		lendingsTablePanel.add(depositsLabel);
-		lendingsTablePanel.add(scrollPane);
+		withdrawButton = new JButton("Withdraw");
+		withdrawButton.setBackground(new Color(0, 204, 255));
+		withdrawButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		withdrawButton.setBounds(604, 296, 137, 49);
+		panel.add(withdrawButton);
 		
-		lendingsTablePanel.setLayout(new BoxLayout(lendingsTablePanel, BoxLayout.Y_AXIS));
-		
-		//lendings panel
-		lendingsPanel = new JPanel();
-		withdrawButton = new JButton("WITHDRAW");
-		
+		//ActionListener for withdrawButton
 		withdrawButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -118,20 +135,15 @@ public class LendFrame extends JFrame {
 			}
 		});
 		
-		lendingsPanel.add(lendingsTablePanel);
-		lendingsPanel.add(withdrawButton);
-		
-		panel.add(titlePanel);
-		panel.add(lendPanel);
-		panel.add(lendingsPanel);
-		
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 870, 520);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
 		
-		this.setContentPane(panel);
-		this.setSize(800, 550);
-		this.setTitle("Borrow Screen");
+		this.setSize(870, 545);
+		this.setResizable(false);
+		this.setTitle("Lend Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -156,7 +168,6 @@ public class LendFrame extends JFrame {
 				i++;
 			}
 		}
-		
 		return new DefaultTableModel(data, columnNames);
 	}
 	

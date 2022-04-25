@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +18,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class StatisticsFrame extends JFrame {
 	private UserAccount signedInAccount;
-	private JPanel panel, titlePanel, diagramPanel;
+	private JPanel panel, diagramPanel;
 	private JLabel titleLabel, statisticsLabel;
-	private JButton backButton;
+	private JButton homeButton;
 	private JFreeChart barChart;
 	private ChartPanel chartPanel;
 	private HashMap<Material, Integer> recycled;
+	private JLabel backgroundIconLabel;
 	
 	public StatisticsFrame() {
 		DataBase db = new DataBase();
@@ -29,13 +32,22 @@ public class StatisticsFrame extends JFrame {
 		recycled = signedInAccount.getRecycled();
 		
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		//title panel
-		titlePanel = new JPanel();
-		backButton = new JButton("Back");
 		titleLabel = new JLabel("Statistics");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setBounds(0, 11, 856, 36);
+		panel.add(titleLabel);
 		
-		backButton.addActionListener(new ActionListener() {
+		homeButton = new JButton("Home");
+		homeButton.setBackground(new Color(255, 153, 102));
+		homeButton.setBounds(10, 455, 97, 36);
+		panel.add(homeButton);
+		
+		//ActionListener for homeButton
+		homeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -44,12 +56,10 @@ public class StatisticsFrame extends JFrame {
 			}
 		});
 		
-		titlePanel.add(backButton);
-		titlePanel.add(titleLabel);
-		
-		//diagram panel
-		diagramPanel = new JPanel();
 		statisticsLabel = new JLabel("Material Statistics of your account");
+		statisticsLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		statisticsLabel.setBounds(91, 68, 253, 14);
+		panel.add(statisticsLabel);
 		
 	    barChart = ChartFactory.createBarChart("Bar Chart", "Materials", "Quantity", loadData(), PlotOrientation.VERTICAL,           
 	             true, true, false);
@@ -71,18 +81,18 @@ public class StatisticsFrame extends JFrame {
         renderer.setSeriesPaint(0, gp);
         
 	    chartPanel = new ChartPanel(barChart);
-	    
-		diagramPanel.add(statisticsLabel);
-		diagramPanel.add(chartPanel);
+	    chartPanel.setBounds(80, 100, 698, 344);
+	    //chartPanel.setMaximumSize(new Dimension(300, 300));
+		panel.add(chartPanel);
 		
-		panel.add(titlePanel);
-		panel.add(diagramPanel);
-		
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 870, 520);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
 		
-		this.setSize(800, 550);
+		this.setSize(870, 545);
+		this.setResizable(false);
 		this.setTitle("Statistics Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
