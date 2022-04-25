@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -5,26 +7,48 @@ import javax.swing.*;
 
 public class DonateFrame extends JFrame {
 	private UserAccount signedInAccount;
-	private JPanel panel, titlePanel, donationPanel, actionsPanel;
-	private JLabel donateTitleLabel, tokensLabel, allDonationsLabel, donationLabel, amountLabel;
-	private JLabel actionsLabel, treesLabel, beachesLabel, roadsLabel;
+	private JPanel panel, actionsPanel;
+	private JLabel titleLabel, donationLabel, amountLabel;
+	private JLabel actionsLabel, treesLabel, beachesLabel, roadsLabel, backgroundIconLabel;
 	private JTextField amountField;
-	private JButton donateButton, backButton;
+	private JButton donateButton, homeButton;
+	private JLabel tokensLabel;
+	private JLabel allDonationsLabel;
 	
 	public DonateFrame() {
 		DataBase db = new DataBase();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(null);
 		
-		//titlePanel
-		titlePanel = new JPanel();
-		backButton = new JButton("Back");
+		titleLabel = new JLabel("Donate Tokens");
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setBounds(0, 11, 860, 32);
+		panel.add(titleLabel);
+		
 		tokensLabel = new JLabel("Tokens: " + signedInAccount.getTokens());
-		donateTitleLabel = new JLabel("Donate Tokens");
-		allDonationsLabel = new JLabel("All donations: " + db.getDonations());
+		tokensLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		tokensLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		tokensLabel.setBounds(154, 120, 148, 14);
+		panel.add(tokensLabel);
 		
-		backButton.addActionListener(new ActionListener() {
+		allDonationsLabel = new JLabel("All donations: " + db.getDonations());
+		allDonationsLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		allDonationsLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		allDonationsLabel.setBounds(154, 95, 148, 14);
+		panel.add(allDonationsLabel);
+		
+		homeButton = new JButton("Home");
+		homeButton.setBackground(new Color(255, 153, 102));
+		homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		homeButton.setBounds(23, 451, 97, 36);
+		panel.add(homeButton);
+		
+		//ActionListener for homeButton
+		homeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -33,18 +57,27 @@ public class DonateFrame extends JFrame {
 			}
 		});
 		
-		titlePanel.add(backButton);
-		titlePanel.add(tokensLabel);
-		titlePanel.add(donateTitleLabel);
-		titlePanel.add(allDonationsLabel);
-		
-		//donation panel
-		donationPanel = new JPanel();
 		donationLabel = new JLabel("Donate tokens for environmental actions");
-		amountLabel = new JLabel("AMOUNT TO DONATE");
-		amountField = new JTextField("Amount");
-		donateButton = new JButton("DONATE");
+		donationLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		donationLabel.setBounds(154, 172, 271, 14);
+		panel.add(donationLabel);
 		
+		amountLabel = new JLabel("AMOUNT TO DONATE");
+		amountLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		amountLabel.setBounds(154, 224, 148, 14);
+		panel.add(amountLabel);
+		
+		amountField = new JTextField("");
+		amountField.setBounds(154, 244, 251, 23);
+		panel.add(amountField);
+		
+		donateButton = new JButton("Donate");
+		donateButton.setBounds(563, 237, 112, 36);
+		donateButton.setBackground(new Color(0, 204, 255));
+		donateButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel.add(donateButton);
+		
+		//ActionListener for donateButton
 		donateButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -65,35 +98,40 @@ public class DonateFrame extends JFrame {
 			}
 		});
 		
-		donationPanel.add(donationLabel);
-		donationPanel.add(amountLabel);
-		donationPanel.add(amountField);
-		donationPanel.add(donateButton);
+		actionsLabel = new JLabel("List of actions");
+		actionsLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		actionsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		actionsLabel.setBounds(0, 327, 856, 23);
+		panel.add(actionsLabel);
 		
 		//actions panel
 		actionsPanel = new JPanel();
-		actionsLabel = new JLabel("List Of Actions");
-		treesLabel = new JLabel("1. Planting Trees");
-		beachesLabel = new JLabel("2. Cleaning Beaches");
-		roadsLabel = new JLabel("3. Cleaning Roads");
+		actionsPanel.setBackground(new Color(204, 255, 204));
+		actionsPanel.setBounds(358, 348, 148, 85);
 		
-		actionsPanel.add(actionsLabel);
+		treesLabel = new JLabel("1. Planting Trees");
+		treesLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		actionsPanel.add(treesLabel);
+		
+		beachesLabel = new JLabel("2. Cleaning Beaches");
+		beachesLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		actionsPanel.add(beachesLabel);
+		
+		roadsLabel = new JLabel("3. Cleaning Roads");
+		roadsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		actionsPanel.add(roadsLabel);
 		
 		actionsPanel.setLayout(new BoxLayout(actionsPanel, BoxLayout.Y_AXIS));
-		
-		
-		panel.add(titlePanel);
-		panel.add(donationPanel);
 		panel.add(actionsPanel);
 		
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+		backgroundIconLabel.setBounds(0, 0, 860, 515);
+		panel.add(backgroundIconLabel);
 		
 		this.setContentPane(panel);
 		
-		this.setSize(800, 550);
+		this.setSize(870, 545);
+		this.setResizable(false);
 		this.setTitle("Donate Screen");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
