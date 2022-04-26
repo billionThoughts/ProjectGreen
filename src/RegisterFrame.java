@@ -115,7 +115,7 @@ public class RegisterFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				DataBase db = new DataBase();
+				DataBase db = DataBase.getInstance();
 					
 				String firstName, lastName, email, username, password, confirmPassword;
 						

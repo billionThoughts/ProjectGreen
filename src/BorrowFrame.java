@@ -21,7 +21,7 @@ public class BorrowFrame extends JFrame {
 	
 	public BorrowFrame() {
 		selectedBorrowing = null;
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -106,7 +106,7 @@ public class BorrowFrame extends JFrame {
 					else {
 						Transaction t = new Borrowing(amount, period);
 						signedInAccount.makeTransaction(t);
-						db.signedInAccountSerialization(signedInAccount);
+						db.saveSignedInAccount(signedInAccount);
 						
 						borrowingsTable.setModel(loadData());
 					}
@@ -145,7 +145,7 @@ public class BorrowFrame extends JFrame {
 				if(selectedBorrowing != null) {
 					if(signedInAccount.isPayBackAffordable(selectedBorrowing)) {
 						int amount = signedInAccount.undoTransaction(selectedBorrowing);
-						db.signedInAccountSerialization(signedInAccount);
+						db.saveSignedInAccount(signedInAccount);
 					
 						borrowingsTable.setModel(loadData());
 						JOptionPane.showMessageDialog(null, "Successful pay back, you paid " + amount + " tokens");

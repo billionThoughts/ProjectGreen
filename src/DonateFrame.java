@@ -16,7 +16,7 @@ public class DonateFrame extends JFrame {
 	private JLabel allDonationsLabel;
 	
 	public DonateFrame() {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -86,7 +86,7 @@ public class DonateFrame extends JFrame {
 				int amount = Integer.parseInt(amountText);
 				if(amount <= signedInAccount.getTokens()) {
 					db.tokenDonation(amount, signedInAccount);
-					db.signedInAccountSerialization(signedInAccount);
+					db.saveSignedInAccount(signedInAccount);
 					tokensLabel.setText("Tokens: " + signedInAccount.getTokens());
 					allDonationsLabel.setText("All donations: " + db.getDonations());
 					JOptionPane.showMessageDialog(null, "You donated " + amount + " tokens!");

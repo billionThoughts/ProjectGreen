@@ -12,7 +12,7 @@ public class RedemptFrame extends JFrame {
 	private JButton homeButton, parkingButton, cinemaButton, transportationButton, bikeButton;
 	
 	public RedemptFrame() {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -110,7 +110,7 @@ public class RedemptFrame extends JFrame {
 	}
 	
 	public Ticket selectTicket(String name) {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		Ticket t = db.getSpecificTicket(name);
 		return t;
 	}
@@ -119,7 +119,7 @@ public class RedemptFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DataBase db = new DataBase();
+			DataBase db = DataBase.getInstance();
 			Ticket t = null;
 			if(e.getSource() == parkingButton) {
 				t = selectTicket("Parking");
@@ -136,7 +136,7 @@ public class RedemptFrame extends JFrame {
 			
 			if(signedInAccount.isTicketAffordable(t)) {
 				signedInAccount.buyTicket(t);
-				db.signedInAccountSerialization(signedInAccount);
+				db.saveSignedInAccount(signedInAccount);
 				new QRFrame();
 				dispose();
 			}

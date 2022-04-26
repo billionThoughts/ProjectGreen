@@ -20,7 +20,7 @@ public class StakeFrame extends JFrame {
 	
 	public StakeFrame() {
 		selectedStaking = null;
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -85,7 +85,7 @@ public class StakeFrame extends JFrame {
 				if(amount <= signedInAccount.getTokens()) {
 					Transaction t = new Staking(amount);
 					signedInAccount.makeTransaction(t);
-					db.signedInAccountSerialization(signedInAccount);
+					db.saveSignedInAccount(signedInAccount);
 					stakingsTable.setModel(loadData());
 				}
 				else JOptionPane.showMessageDialog(null, "You don't have enough tokens",
@@ -119,7 +119,7 @@ public class StakeFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(selectedStaking != null) {
 					int amount = signedInAccount.undoTransaction(selectedStaking);
-					db.signedInAccountSerialization(signedInAccount);
+					db.saveSignedInAccount(signedInAccount);
 					
 					stakingsTable.setModel(loadData());
 					JOptionPane.showMessageDialog(null, "Successful unstake, you get " + amount + " tokens!");

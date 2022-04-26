@@ -65,7 +65,7 @@ public class InfoFrame extends JFrame {
 	protected DefaultTableModel loadData() {
 		String columnNames[] = {"Material", "Token Reward"};
 		String data[][] = new String[5][2];
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		int i=0;
 		int j=0;
 		

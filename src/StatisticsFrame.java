@@ -27,7 +27,7 @@ public class StatisticsFrame extends JFrame {
 	private JLabel backgroundIconLabel;
 	
 	public StatisticsFrame() {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		recycled = signedInAccount.getRecycled();
 		

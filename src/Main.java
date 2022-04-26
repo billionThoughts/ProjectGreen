@@ -5,7 +5,7 @@ public class Main {
 		
 		//Initializations
 		
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		
 		if(!db.materialsDeserialization()) {
 			//Initialization of materials.ser

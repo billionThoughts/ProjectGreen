@@ -66,7 +66,7 @@ public class SignInFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				DataBase db = new DataBase();
+				DataBase db = DataBase.getInstance();
 						
 				String username = usernameField.getText();
 				String password = passwordField.getText();

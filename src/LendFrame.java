@@ -20,7 +20,7 @@ public class LendFrame extends JFrame {
 	
 	public LendFrame() {
 		selectedLending = null;
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -84,7 +84,7 @@ public class LendFrame extends JFrame {
 				if(amount <= signedInAccount.getTokens()) {
 					Transaction t = new Lending(amount);
 					signedInAccount.makeTransaction(t);
-					db.signedInAccountSerialization(signedInAccount);
+					db.saveSignedInAccount(signedInAccount);
 					
 					lendingsTable.setModel(loadData());
 				}
@@ -124,7 +124,7 @@ public class LendFrame extends JFrame {
 				if(selectedLending != null) {
 					
 					int amount = signedInAccount.undoTransaction(selectedLending);
-					db.signedInAccountSerialization(signedInAccount);
+					db.saveSignedInAccount(signedInAccount);
 					
 					lendingsTable.setModel(loadData());
 					JOptionPane.showMessageDialog(null, "Successful withdraw, you get back " + amount + " tokens");

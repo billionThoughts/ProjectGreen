@@ -30,7 +30,7 @@ public class UserAccount implements Serializable {
 	}
 	
 	private void recycledInitialization() {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		for(Material material : db.getMaterials()) {
 			recycled.put(material, 0);
 		}

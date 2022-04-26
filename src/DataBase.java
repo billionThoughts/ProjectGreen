@@ -2,12 +2,13 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DataBase {
+	private static DataBase instance = new DataBase();
 	private ArrayList<UserAccount> userAccounts;
 	private ArrayList<Material> materials;
 	private ArrayList<Ticket> tickets;
 	private int donations;
 	
-	public DataBase() {
+	private DataBase() {
 		if(!userAccountsDeserialization()) {
 			userAccounts = new ArrayList<UserAccount>();
 		}
@@ -20,6 +21,10 @@ public class DataBase {
 		if(!donationsDeserialization()) {
 			donations = 0;
 		}
+	}
+	
+	public static DataBase getInstance() {
+		return instance;
 	}
 	
 	public int getDonations() {
@@ -131,6 +136,7 @@ public class DataBase {
 			if(a.getUsername().equals(signedInAccount.getUsername()))
 				userAccounts.set(userAccounts.indexOf(a), signedInAccount);
 		}
+		this.signedInAccountSerialization(signedInAccount);
 		this.userAccountsSerialization();
 	}
 	

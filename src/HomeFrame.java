@@ -13,7 +13,7 @@ public class HomeFrame extends JFrame {
 	private JButton infoButton, plasticButton, paperButton, glassButton, metalButton, organicButton;
 	
 	public HomeFrame() {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -233,7 +233,7 @@ public class HomeFrame extends JFrame {
 	}
 	
 	public Material selectMaterial(JButton button) {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		String materialName = button.getText();
 		Material m = db.getSpecificMaterial(materialName);
 		return m;
@@ -257,7 +257,7 @@ class FirstRecycleFrame extends JFrame {
 	private JButton recycleButton, homeButton;
 	
 	public FirstRecycleFrame(Material m) {
-		DataBase db = new DataBase();
+		DataBase db = DataBase.getInstance();
 		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
@@ -308,7 +308,7 @@ class FirstRecycleFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				signedInAccount.recycleMaterial(m);
-				db.signedInAccountSerialization(signedInAccount);
+				db.saveSignedInAccount(signedInAccount);
 				new SecondRecycleFrame(m);
 				dispose();
 			}
