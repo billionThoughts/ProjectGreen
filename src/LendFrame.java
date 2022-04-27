@@ -184,18 +184,10 @@ public class LendFrame extends JFrame {
 					if(lendingsTable.getValueAt(selectedRow, 0) != null) {
 						JOptionPane.showMessageDialog(null, "You have selected Lending # " 
 								+ lendingsTable.getValueAt(selectedRow, 0).toString());
-						for(Transaction t : signedInAccount.getTransactions()) {
-						String tAmount = Integer.toString(t.getAmount());
-						String selectedLendingAmount = lendingsTable.getValueAt(selectedRow, 1).toString();
-											
-						String tPeriod = t.getStringPeriod();
-						String selectedLendingPeriod = lendingsTable.getValueAt(selectedRow, 2).toString();
-											
-							if((tAmount.equals(selectedLendingAmount))
-									&& (tPeriod.equals(selectedLendingPeriod)) && (t instanceof Lending)) {
-								selectedLending = t;
-							}
-						}
+						
+						String amount = lendingsTable.getValueAt(selectedRow, 1).toString();
+						String period = lendingsTable.getValueAt(selectedRow, 2).toString();
+						selectedLending = signedInAccount.getSelectedTransaction(amount, period, "class Lending");
 					}
 					else selectedLending = null;
 			  }

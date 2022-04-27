@@ -7,8 +7,8 @@ public class Main {
 		
 		DataBase db = DataBase.getInstance();
 		
+		//Initialization of materials.ser
 		if(!db.materialsDeserialization()) {
-			//Initialization of materials.ser
 			Material plastic = new Material("Plastic", 15);
 			Material paper = new Material("Paper", 50);
 			Material glass = new Material("Glass", 20);
@@ -22,8 +22,8 @@ public class Main {
 			db.addMaterial(organic);
 		}
 
+		//Initialization of tickets
 		if(!db.ticketsDeserialization()) {
-			//Initialization of tickets
 			Ticket parking = new Ticket("Parking", 3000);
 			Ticket cinema = new Ticket("Cinema", 8000);
 			Ticket transportation = new Ticket("Public Transportation", 5000);

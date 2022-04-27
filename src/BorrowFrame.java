@@ -207,18 +207,10 @@ class BorrowingSelectionListener implements ListSelectionListener {
 					if(borrowingsTable.getValueAt(selectedRow, 0) != null) {
 						JOptionPane.showMessageDialog(null, "You have selected Borrowing # " 
 								+ borrowingsTable.getValueAt(selectedRow, 0).toString());
-						for(Transaction t : signedInAccount.getTransactions()) {
-						String tAmount = Integer.toString(t.getAmount());
-						String selectedBorrowingAmount = borrowingsTable.getValueAt(selectedRow, 1).toString();
-											
-						String tPeriod = t.getStringPeriod();
-						String selectedBorrowingPeriod = borrowingsTable.getValueAt(selectedRow, 2).toString();
-											
-							if((tAmount.equals(selectedBorrowingAmount))
-									&& (tPeriod.equals(selectedBorrowingPeriod)) && (t instanceof Borrowing)) {
-								selectedBorrowing = t;
-							}
-						}
+						
+						String amount = borrowingsTable.getValueAt(selectedRow, 1).toString();
+						String period = borrowingsTable.getValueAt(selectedRow, 2).toString();
+						selectedBorrowing = signedInAccount.getSelectedTransaction(amount, period, "class Borrowing");
 					}
 					else selectedBorrowing = null;
 			  }

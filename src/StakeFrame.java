@@ -181,17 +181,9 @@ public class StakeFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "You have selected Staking # " 
 							+ stakingsTable.getValueAt(selectedRow, 0).toString());
 					
-					for(Transaction t : signedInAccount.getTransactions()) {
-						String tAmount = Integer.toString(t.getAmount());
-						String selectedStakingAmount = stakingsTable.getValueAt(selectedRow, 1).toString();		
-						String tPeriod = t.getStringPeriod();
-						String selectedStakingPeriod = stakingsTable.getValueAt(selectedRow, 2).toString();
-											
-						if((tAmount.equals(selectedStakingAmount)) 
-								&& (tPeriod.equals(selectedStakingPeriod)) && (t instanceof Staking)) {
-							selectedStaking = t;
-						}
-					}
+					String amount = stakingsTable.getValueAt(selectedRow, 1).toString();	
+					String period = stakingsTable.getValueAt(selectedRow, 2).toString();
+					selectedStaking = signedInAccount.getSelectedTransaction(amount, period, "class Staking");
 				}
 				else selectedStaking = null;
 			 }

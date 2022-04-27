@@ -130,6 +130,20 @@ public class UserAccount implements Serializable {
 		return t.payment();
 	}
 	
+	public Transaction getSelectedTransaction(String amount, String period, String classType) {
+		Transaction selectedTransaction = null;
+		for(Transaction t : transactions) {
+			String tAmount = Integer.toString(t.getAmount());	
+			String tPeriod = t.getStringPeriod();
+			if((tAmount.equals(amount)) 
+					&& (tPeriod.equals(period)) && (t.getClass().toString().equals(classType))) {
+				selectedTransaction = t;
+				break;
+			}
+		}
+		return selectedTransaction;
+	}
+	
 	public int calculateTotalBorrowings() {
 		int sum = 0;
 		for(Transaction t : transactions) {
