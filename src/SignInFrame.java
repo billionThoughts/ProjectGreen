@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.*;
 
 public class SignInFrame extends JFrame {
@@ -71,8 +73,9 @@ public class SignInFrame extends JFrame {
 				String username = usernameField.getText();
 				String password = passwordField.getText();
 
-				if(db.authentication(username, password)) {
-					new HomeFrame();
+				UserAccount signedInAccount = db.authentication(username, password);
+				if(signedInAccount != null) {
+					new HomeFrame(signedInAccount);
 					dispose();
 				}
 				else JOptionPane.showMessageDialog(null, "Wrong Username or Password", 

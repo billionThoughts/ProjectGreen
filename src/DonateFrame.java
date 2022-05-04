@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class DonateFrame extends JFrame {
-	private UserAccount signedInAccount;
 	private JPanel panel, actionsPanel;
 	private JLabel titleLabel, donationLabel, amountLabel;
 	private JLabel actionsLabel, treesLabel, beachesLabel, roadsLabel, backgroundIconLabel;
@@ -15,9 +14,8 @@ public class DonateFrame extends JFrame {
 	private JLabel tokensLabel;
 	private JLabel allDonationsLabel;
 	
-	public DonateFrame() {
+	public DonateFrame(UserAccount signedInAccount) {
 		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -52,7 +50,7 @@ public class DonateFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});

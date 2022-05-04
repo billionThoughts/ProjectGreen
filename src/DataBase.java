@@ -99,55 +99,21 @@ public class DataBase {
 		this.userAccountsSerialization();
 	}
 	
-	public void signedInAccountSerialization(UserAccount signedInAccount) {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("signedInAccount.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(signedInAccount);
-			out.close();
-			fileOut.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("signedInAccount.ser File Not Found (signed in account serialization)");
-		} catch (IOException e) {
-			System.out.println("signedInAccount.ser IO Exception ? (signed in account serialization)");
-		}
-	}
-	
-	public UserAccount signedInAccountDeserialization() {
-		UserAccount signedInAccount = null;
-		try {
-			FileInputStream fileIn = new FileInputStream("signedInAccount.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			signedInAccount = (UserAccount) in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("signedInAccount.ser File Not Found HomeFrame signed in account deserialization");
-		} catch (IOException e) {
-			System.out.println("signedInAccount.ser IO Exception HomeFrame signed in account deserialization");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class Not Found");
-		}
-		return signedInAccount;
-	}
-	
 	public void saveSignedInAccount(UserAccount signedInAccount) {
 		for(UserAccount a : userAccounts) {
 			if(a.getUsername().equals(signedInAccount.getUsername()))
 				userAccounts.set(userAccounts.indexOf(a), signedInAccount);
 		}
-		this.signedInAccountSerialization(signedInAccount);
 		this.userAccountsSerialization();
 	}
 	
-	public boolean authentication(String username, String password) {
+	public UserAccount authentication(String username, String password) {
 		for(UserAccount acc : userAccounts) {
 			if(username.equals(acc.getUsername()) && password.equals(acc.getPassword())) {
-				signedInAccountSerialization(acc);
-				return true;
+				return acc;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean materialsDeserialization() {

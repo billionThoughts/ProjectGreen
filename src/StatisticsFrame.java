@@ -26,9 +26,9 @@ public class StatisticsFrame extends JFrame {
 	private HashMap<Material, Integer> recycled;
 	private JLabel backgroundIconLabel;
 	
-	public StatisticsFrame() {
+	public StatisticsFrame(UserAccount signedInAccount) {
 		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+		this.signedInAccount = signedInAccount;
 		recycled = signedInAccount.getRecycled();
 		
 		panel = new JPanel();
@@ -51,7 +51,7 @@ public class StatisticsFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -99,7 +99,7 @@ public class StatisticsFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	protected DefaultCategoryDataset loadData() {
+	private DefaultCategoryDataset loadData() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		Iterator<Material> it = recycled.keySet().iterator();

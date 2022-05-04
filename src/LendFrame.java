@@ -18,10 +18,10 @@ public class LendFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private Transaction selectedLending;
 	
-	public LendFrame() {
+	public LendFrame(UserAccount signedInAccount) {
 		selectedLending = null;
 		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+		this.signedInAccount = signedInAccount;
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -43,7 +43,7 @@ public class LendFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -149,7 +149,7 @@ public class LendFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	protected DefaultTableModel loadData() {
+	private DefaultTableModel loadData() {
 		
 		String columnNames[] = {"#", "Amount", "Period", "APY", "Reward", "Total Amount"};
 		String data[][] = new String[10][6];

@@ -12,9 +12,8 @@ public class HomeFrame extends JFrame {
 	private JButton useButton, stakeButton, borrowButton, lendButton, donateButton, statisticsButton, logoutButton;
 	private JButton infoButton, plasticButton, paperButton, glassButton, metalButton, organicButton;
 	
-	public HomeFrame() {
-		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+	public HomeFrame(UserAccount signedInAccount) {
+		this.signedInAccount = signedInAccount;
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -35,6 +34,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				DataBase db = DataBase.getInstance();
 				db.saveSignedInAccount(signedInAccount);
 				dispose();
 				new SignInFrame();
@@ -117,7 +117,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new InfoFrame();
+				new InfoFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -133,7 +133,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new RedemptFrame();
+				new RedemptFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -149,7 +149,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new StakeFrame();
+				new StakeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -165,7 +165,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new BorrowFrame();
+				new BorrowFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -181,7 +181,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new LendFrame();
+				new LendFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -197,7 +197,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new DonateFrame();
+				new DonateFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -213,7 +213,7 @@ public class HomeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new StatisticsFrame();
+				new StatisticsFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -248,156 +248,153 @@ public class HomeFrame extends JFrame {
 			dispose();
 		}
 	}
-}
-
-class FirstRecycleFrame extends JFrame {
-	private UserAccount signedInAccount;
-	private JPanel panel;
-	private JLabel titleLabel, firstRecycleLabel, secondRecycleLabel, backgroundIconLabel;
-	private JButton recycleButton, homeButton;
 	
-	public FirstRecycleFrame(Material m) {
-		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+	class FirstRecycleFrame extends JFrame {
+		private JPanel panel;
+		private JLabel titleLabel, firstRecycleLabel, secondRecycleLabel, backgroundIconLabel;
+		private JButton recycleButton, homeButton;
 		
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(null);
-		
-		titleLabel = new JLabel("Recycle");
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setBounds(0, 11, 827, 36);
-		panel.add(titleLabel);
-		
-		homeButton = new JButton("Home");
-		homeButton.setBackground(new Color(255, 153, 102));
-		homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		homeButton.setBounds(10, 455, 97, 36);
-		panel.add(homeButton);
-		
-		//ActionListener for homeButton
-		homeButton.addActionListener(new ActionListener() {
+		public FirstRecycleFrame(Material m) {		
+			panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			panel.setLayout(null);
+			
+			titleLabel = new JLabel("Recycle");
+			titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+			titleLabel.setBounds(0, 11, 827, 36);
+			panel.add(titleLabel);
+			
+			homeButton = new JButton("Home");
+			homeButton.setBackground(new Color(255, 153, 102));
+			homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+			homeButton.setBounds(10, 455, 97, 36);
+			panel.add(homeButton);
+			
+			//ActionListener for homeButton
+			homeButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
-				dispose();
-			}
-		});
-		
-		firstRecycleLabel = new JLabel("You chose to recycle " + m.getName().toLowerCase() + "!");
-		firstRecycleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		firstRecycleLabel.setForeground(new Color(0, 0, 0));
-		firstRecycleLabel.setBounds(182, 129, 185, 18);
-		panel.add(firstRecycleLabel);
-		
-		secondRecycleLabel = new JLabel("Please insert " + m.getName().toLowerCase() + " materials to the gap.");
-		secondRecycleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		secondRecycleLabel.setBounds(182, 182, 260, 18);
-		panel.add(secondRecycleLabel);
-		
-		recycleButton = new JButton("Recycle Now");
-		recycleButton.setBackground(new Color(51, 204, 255));
-		recycleButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		recycleButton.setBounds(300, 330, 206, 51);
-		panel.add(recycleButton);
-		
-		//ActionListener for recycleButton
-		recycleButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new HomeFrame(signedInAccount);
+					dispose();
+				}
+			});
+			
+			firstRecycleLabel = new JLabel("You chose to recycle " + m.getName().toLowerCase() + "!");
+			firstRecycleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+			firstRecycleLabel.setForeground(new Color(0, 0, 0));
+			firstRecycleLabel.setBounds(182, 129, 185, 18);
+			panel.add(firstRecycleLabel);
+			
+			secondRecycleLabel = new JLabel("Please insert " + m.getName().toLowerCase() + " materials to the gap.");
+			secondRecycleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+			secondRecycleLabel.setBounds(182, 182, 260, 18);
+			panel.add(secondRecycleLabel);
+			
+			recycleButton = new JButton("Recycle Now");
+			recycleButton.setBackground(new Color(51, 204, 255));
+			recycleButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+			recycleButton.setBounds(300, 330, 206, 51);
+			panel.add(recycleButton);
+			
+			//ActionListener for recycleButton
+			recycleButton.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				signedInAccount.recycleMaterial(m);
-				db.saveSignedInAccount(signedInAccount);
-				new SecondRecycleFrame(m);
-				dispose();
-			}
-		});
-		
-		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
-		backgroundIconLabel.setBounds(0, 0, 860, 515);
-		panel.add(backgroundIconLabel);
-		
-		this.setContentPane(panel);
-		
-		this.setSize(870, 545);
-		this.setResizable(false);
-		this.setTitle("First Recycle Screen");
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					signedInAccount.recycleMaterial(m);
+					DataBase db = DataBase.getInstance();
+					db.saveSignedInAccount(signedInAccount);
+					new SecondRecycleFrame(m);
+					dispose();
+				}
+			});
+			
+			backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+			backgroundIconLabel.setBounds(0, 0, 860, 515);
+			panel.add(backgroundIconLabel);
+			
+			this.setContentPane(panel);
+			
+			this.setSize(870, 545);
+			this.setResizable(false);
+			this.setTitle("First Recycle Screen");
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		}
 	}
-}
-
-class SecondRecycleFrame extends JFrame {
-	private JPanel panel;
-	private JLabel recycleLabel, firstLabel, secondLabel, thirdLabel, backgroundIconLabel;
-	private JButton homeButton;
-	private Timer timer;
 	
-	public SecondRecycleFrame(Material m) {	
-		timer = new Timer(3000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				secondLabel.setText("Materials accepted.");
-				thirdLabel.setText("Congratulations you earn " + m.getReward() + " Tokens!");
-			}
-		});
+	class SecondRecycleFrame extends JFrame {
+		private JPanel panel;
+		private JLabel recycleLabel, firstLabel, secondLabel, thirdLabel, backgroundIconLabel;
+		private JButton homeButton;
+		private Timer timer;
 		
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(null);
-		
-		recycleLabel = new JLabel("Recycle");
-		recycleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		recycleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		recycleLabel.setBounds(0, 11, 827, 41);
-		panel.add(recycleLabel);
-		
-		homeButton = new JButton("Home");
-		homeButton.setBackground(new Color(255, 153, 102));
-		homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		homeButton.setBounds(10, 455, 97, 36);
-		panel.add(homeButton);
-		
-		//ActionListener for homeButton
-		homeButton.addActionListener(new ActionListener() {
+		public SecondRecycleFrame(Material m) {	
+			timer = new Timer(3000, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					secondLabel.setText("Materials accepted.");
+					thirdLabel.setText("Congratulations you earn " + m.getReward() + " Tokens!");
+				}
+			});
+			
+			panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			panel.setLayout(null);
+			
+			recycleLabel = new JLabel("Recycle");
+			recycleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			recycleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+			recycleLabel.setBounds(0, 11, 827, 41);
+			panel.add(recycleLabel);
+			
+			homeButton = new JButton("Home");
+			homeButton.setBackground(new Color(255, 153, 102));
+			homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+			homeButton.setBounds(10, 455, 97, 36);
+			panel.add(homeButton);
+			
+			//ActionListener for homeButton
+			homeButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
-				dispose();
-			}
-		});
-		
-		firstLabel = new JLabel("Please wait while we check the materials!");
-		firstLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		firstLabel.setBounds(165, 143, 282, 18);
-		panel.add(firstLabel);
-		
-		timer.start();
-		
-		secondLabel = new JLabel(" ... ");
-		secondLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		secondLabel.setBounds(165, 250, 145, 18);
-		panel.add(secondLabel);
-		
-		thirdLabel = new JLabel(" ");
-		thirdLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		thirdLabel.setBounds(165, 274, 240, 18);
-		panel.add(thirdLabel);
-		
-		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
-		backgroundIconLabel.setBounds(0, 0, 860, 515);
-		panel.add(backgroundIconLabel);
-		
-		this.setContentPane(panel);
-		
-		this.setSize(870, 545);
-		this.setResizable(false);
-		this.setTitle("Second Recycle Screen");
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				public void actionPerformed(ActionEvent e) {
+					new HomeFrame(signedInAccount);
+					dispose();
+				}
+			});
+			
+			firstLabel = new JLabel("Please wait while we check the materials!");
+			firstLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+			firstLabel.setBounds(165, 143, 282, 18);
+			panel.add(firstLabel);
+			
+			timer.start();
+			
+			secondLabel = new JLabel(" ... ");
+			secondLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+			secondLabel.setBounds(165, 250, 145, 18);
+			panel.add(secondLabel);
+			
+			thirdLabel = new JLabel(" ");
+			thirdLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+			thirdLabel.setBounds(165, 274, 240, 18);
+			panel.add(thirdLabel);
+			
+			backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+			backgroundIconLabel.setBounds(0, 0, 860, 515);
+			panel.add(backgroundIconLabel);
+			
+			this.setContentPane(panel);
+			
+			this.setSize(870, 545);
+			this.setResizable(false);
+			this.setTitle("Second Recycle Screen");
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		}
 	}
 }
 

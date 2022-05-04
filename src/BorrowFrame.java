@@ -19,10 +19,10 @@ public class BorrowFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private Transaction selectedBorrowing;
 	
-	public BorrowFrame() {
+	public BorrowFrame(UserAccount signedInAccount) {
 		selectedBorrowing = null;
 		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+		this.signedInAccount = signedInAccount;
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -45,7 +45,7 @@ public class BorrowFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -173,7 +173,7 @@ public class BorrowFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	protected DefaultTableModel loadData() {
+	private DefaultTableModel loadData() {
 		
 		String columnNames[] = {"#", "Amount", "Period", "APY", "Total Payback"};
 		String data[][] = new String[5][5];
@@ -194,7 +194,7 @@ public class BorrowFrame extends JFrame {
 		return new DefaultTableModel(data, columnNames);
 	}
 	
-class BorrowingSelectionListener implements ListSelectionListener {
+	class BorrowingSelectionListener implements ListSelectionListener {
 		
 		public void valueChanged(ListSelectionEvent e) {
 			if(e.getValueIsAdjusting())

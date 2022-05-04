@@ -13,7 +13,7 @@ public class InfoFrame extends JFrame {
 	private JTable infoTable;
 	private JScrollPane scrollPane;
 	
-	public InfoFrame() {
+	public InfoFrame(UserAccount signedInAccount) {
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
@@ -35,7 +35,7 @@ public class InfoFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -62,7 +62,7 @@ public class InfoFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	protected DefaultTableModel loadData() {
+	private DefaultTableModel loadData() {
 		String columnNames[] = {"Material", "Token Reward"};
 		String data[][] = new String[5][2];
 		DataBase db = DataBase.getInstance();

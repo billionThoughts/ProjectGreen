@@ -11,9 +11,8 @@ public class RedemptFrame extends JFrame {
 	private JLabel titleLabel, parkingLabel, cinemaLabel, transportationLabel, bikeLabel, backgroundIconLabel;
 	private JButton homeButton, parkingButton, cinemaButton, transportationButton, bikeButton;
 	
-	public RedemptFrame() {
-		DataBase db = DataBase.getInstance();
-		signedInAccount = db.signedInAccountDeserialization();
+	public RedemptFrame(UserAccount signedInAccount) {
+		this.signedInAccount = signedInAccount;
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -36,7 +35,7 @@ public class RedemptFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
+				new HomeFrame(signedInAccount);
 				dispose();
 			}
 		});
@@ -143,86 +142,86 @@ public class RedemptFrame extends JFrame {
 			else JOptionPane.showMessageDialog(null, "You can't afford this ticket", "Ticket Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-}
-
-class QRFrame extends JFrame {
-	private JPanel panel;
-	private JLabel titleLabel, redemptLabel_1, redemptLabel_2, redemptLabel_3, redemptLabel_4, backgroundIconLabel;
-	private JButton homeButton;
-	private Timer timer;
 	
-	public QRFrame() {
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(null);
+	class QRFrame extends JFrame {
+		private JPanel panel;
+		private JLabel titleLabel, redemptLabel_1, redemptLabel_2, redemptLabel_3, redemptLabel_4, backgroundIconLabel;
+		private JButton homeButton;
+		private Timer timer;
 		
-		titleLabel = new JLabel("Use Tokens");
-		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(0, 11, 827, 30);
-		panel.add(titleLabel);
-		
-		homeButton = new JButton("Home");
-		homeButton.setBackground(new Color(255, 153, 102));
-		homeButton.setBounds(10, 455, 97, 36);
-		panel.add(homeButton);
-		
-		//ActionListener for homeButton
-		homeButton.addActionListener(new ActionListener() {
+		public QRFrame() {
+			panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			panel.setLayout(null);
+			
+			titleLabel = new JLabel("Use Tokens");
+			titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+			titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			titleLabel.setBounds(0, 11, 827, 30);
+			panel.add(titleLabel);
+			
+			homeButton = new JButton("Home");
+			homeButton.setBackground(new Color(255, 153, 102));
+			homeButton.setBounds(10, 455, 97, 36);
+			panel.add(homeButton);
+			
+			//ActionListener for homeButton
+			homeButton.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new HomeFrame();
-				dispose();
-			}
-		});
-		
-		redemptLabel_1 = new JLabel("Please wait");
-		redemptLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		redemptLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		redemptLabel_1.setBounds(115, 95, 84, 23);
-		panel.add(redemptLabel_1);
-		
-		redemptLabel_2 = new JLabel("...");
-		redemptLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		redemptLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		redemptLabel_2.setBounds(197, 95, 20, 23);
-		panel.add(redemptLabel_2);
-		
-		redemptLabel_3 = new JLabel("");
-		redemptLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		redemptLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		redemptLabel_3.setBounds(115, 152, 341, 23);
-		panel.add(redemptLabel_3);
-		
-		redemptLabel_4 = new JLabel("");
-		redemptLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		redemptLabel_4.setBounds(368, 291, 84, 84);
-		panel.add(redemptLabel_4);
-		
-		timer = new Timer(3000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				redemptLabel_1.setText("");
-				redemptLabel_2.setText("");
-				redemptLabel_3.setText("Congratulations, scan the QR code to receive your ticket.");
-				redemptLabel_4.setIcon(new ImageIcon(getClass().getResource("/images/barcode.gif")));
-			}
-		});
-		
-		timer.start();
-		
-		backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
-		backgroundIconLabel.setBounds(0, 0, 860, 515);
-		panel.add(backgroundIconLabel);
-		
-		this.setContentPane(panel);
-		
-		this.setSize(870, 545);
-		this.setResizable(false);
-		this.setTitle("Redempt Screen");
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new HomeFrame(signedInAccount);
+					dispose();
+				}
+			});
+			
+			redemptLabel_1 = new JLabel("Please wait");
+			redemptLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+			redemptLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+			redemptLabel_1.setBounds(115, 95, 84, 23);
+			panel.add(redemptLabel_1);
+			
+			redemptLabel_2 = new JLabel("...");
+			redemptLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+			redemptLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+			redemptLabel_2.setBounds(197, 95, 20, 23);
+			panel.add(redemptLabel_2);
+			
+			redemptLabel_3 = new JLabel("");
+			redemptLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+			redemptLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+			redemptLabel_3.setBounds(115, 152, 341, 23);
+			panel.add(redemptLabel_3);
+			
+			redemptLabel_4 = new JLabel("");
+			redemptLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+			redemptLabel_4.setBounds(368, 291, 84, 84);
+			panel.add(redemptLabel_4);
+			
+			timer = new Timer(3000, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					redemptLabel_1.setText("");
+					redemptLabel_2.setText("");
+					redemptLabel_3.setText("Congratulations, scan the QR code to receive your ticket.");
+					redemptLabel_4.setIcon(new ImageIcon(getClass().getResource("/images/barcode.gif")));
+				}
+			});
+			
+			timer.start();
+			
+			backgroundIconLabel = new JLabel(new ImageIcon(getClass().getResource("/images/background.jpg")));
+			backgroundIconLabel.setBounds(0, 0, 860, 515);
+			panel.add(backgroundIconLabel);
+			
+			this.setContentPane(panel);
+			
+			this.setSize(870, 545);
+			this.setResizable(false);
+			this.setTitle("Redempt Screen");
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		}
 	}
 }
