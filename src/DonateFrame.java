@@ -82,8 +82,8 @@ public class DonateFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String amountText = amountField.getText();
 				int amount = Integer.parseInt(amountText);
-				if(amount <= signedInAccount.getTokens()) {
-					db.tokenDonation(amount, signedInAccount);
+				
+				if(db.tokenDonation(amount, signedInAccount)) {
 					db.saveSignedInAccount(signedInAccount);
 					tokensLabel.setText("Tokens: " + signedInAccount.getTokens());
 					allDonationsLabel.setText("All donations: " + db.getDonations());

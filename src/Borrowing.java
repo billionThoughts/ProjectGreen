@@ -34,9 +34,7 @@ public class Borrowing extends Transaction {
 	}
 	
 	public int payment() {
-		LocalDate today = LocalDate.now(ZoneId.of("GMT+3"));
-		int realPeriod = (int) ChronoUnit.MONTHS.between(periodStart, today);
-		return (amount + (int) (amount*APY*(realPeriod/12)));
+		return getTotalAmount();
 	}
 
 	

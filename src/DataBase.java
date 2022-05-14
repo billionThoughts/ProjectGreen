@@ -85,13 +85,12 @@ public class DataBase {
 	}
 	
 	public boolean checkParticularsAvailability(String username, String email) {
-		boolean flag = true;
 		for(UserAccount acc : userAccounts) {
 			if(username.equals(acc.getUsername()) || email.equals(acc.getEmail())) {
-				flag = false;
+				return false;
 			}
 		}
-		return flag;
+		return true;
 	}
 	
 	public void addUserAccount(UserAccount acc) {
@@ -219,9 +218,12 @@ public class DataBase {
 		}
 	}
 	
-	public void tokenDonation(int amount, UserAccount signedInAccount) {
-		signedInAccount.donateTokens(amount);
-		this.donations += amount;
-		this.donationsSerialization();
+	public boolean tokenDonation(int amount, UserAccount signedInAccount) {
+		if(signedInAccount.donateTokens(amount)) {
+			this.donations += amount;
+			this.donationsSerialization();
+			return true;
+		}
+		return false;
 	}
 }

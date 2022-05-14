@@ -83,8 +83,12 @@ public class UserAccount implements Serializable {
 		this.tokens -= t.getCost();
 	}
 	
-	public void donateTokens(int amount) {
-		this.tokens -= amount;
+	public boolean donateTokens(int amount) {
+		if(tokens>=amount) {
+			this.tokens -= amount;
+			return true;
+		}
+		return false;
 	}
 	
 	public void addTransaction(Transaction t) {
@@ -126,7 +130,6 @@ public class UserAccount implements Serializable {
 		}
 		
 		removeTransaction(t);
-		
 		return t.payment();
 	}
 	
