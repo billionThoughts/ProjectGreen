@@ -205,9 +205,10 @@ public class BorrowFrame extends JFrame {
 				  int selectedRow=lsm.getMinSelectionIndex();
 					
 					if(borrowingsTable.getValueAt(selectedRow, 0) != null) {
+						/*
 						JOptionPane.showMessageDialog(null, "You have selected Borrowing # " 
 								+ borrowingsTable.getValueAt(selectedRow, 0).toString());
-						
+						*/
 						String amount = borrowingsTable.getValueAt(selectedRow, 1).toString();
 						String period = borrowingsTable.getValueAt(selectedRow, 2).toString();
 						selectedBorrowing = signedInAccount.getSelectedTransaction(amount, period, "class Borrowing");

@@ -71,7 +71,7 @@ public class SignInFrame extends JFrame {
 				DataBase db = DataBase.getInstance();
 						
 				String username = usernameField.getText();
-				String password = passwordField.getText();
+				String password = String.valueOf(passwordField.getPassword());
 
 				UserAccount signedInAccount = db.authentication(username, password);
 				if(signedInAccount != null) {

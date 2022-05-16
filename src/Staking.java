@@ -33,6 +33,13 @@ public class Staking extends Transaction {
 		return amount + this.getInterestAmount();
 	}
 	
+	public boolean isStakePeriodCompleted() {
+		if(periodEnd.equals(LocalDate.now(ZoneId.of("GMT+3")))){
+			return true;
+		}
+		return false;
+	}
+	
 	public int payment() {
 		int amountToPay = 0;
 		LocalDate today = LocalDate.now(ZoneId.of("GMT+3"));

@@ -118,12 +118,19 @@ public class StakeFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(selectedStaking != null) {
-					int amount = signedInAccount.undoTransaction(selectedStaking);
-					db.saveSignedInAccount(signedInAccount);
-					
-					stakingsTable.setModel(loadData());
-					JOptionPane.showMessageDialog(null, "Successful unstake, you get " + amount + " tokens!");
-					selectedStaking = null;
+					if(!((Staking) selectedStaking).isStakePeriodCompleted() && 
+							((JOptionPane.showConfirmDialog(null, "Staking period has not been completed. Unstake anyway?",
+									"Staking Warning", JOptionPane.OK_CANCEL_OPTION)) == JOptionPane.CANCEL_OPTION)) {
+						selectedStaking = null;
+					}
+					else {
+						int amount = signedInAccount.undoTransaction(selectedStaking);
+						db.saveSignedInAccount(signedInAccount);
+						
+						stakingsTable.setModel(loadData());
+						JOptionPane.showMessageDialog(null, "Successful unstake, you get " + amount + " tokens!");
+						selectedStaking = null;
+					}
 				}
 				else JOptionPane.showMessageDialog(null, "You haven't selected a staking",
 						"Staking Warning", JOptionPane.WARNING_MESSAGE);
@@ -178,9 +185,10 @@ public class StakeFrame extends JFrame {
 
 				if((stakingsTable.getValueAt(selectedRow, 0) != null)) {
 					
+					/*
 					JOptionPane.showMessageDialog(null, "You have selected Staking # " 
 							+ stakingsTable.getValueAt(selectedRow, 0).toString());
-					
+					*/
 					String amount = stakingsTable.getValueAt(selectedRow, 1).toString();	
 					String period = stakingsTable.getValueAt(selectedRow, 2).toString();
 					selectedStaking = signedInAccount.getSelectedTransaction(amount, period, "class Staking");

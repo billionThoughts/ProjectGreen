@@ -182,9 +182,10 @@ public class LendFrame extends JFrame {
 				  int selectedRow=lsm.getMinSelectionIndex();
 					
 					if(lendingsTable.getValueAt(selectedRow, 0) != null) {
+						/*
 						JOptionPane.showMessageDialog(null, "You have selected Lending # " 
 								+ lendingsTable.getValueAt(selectedRow, 0).toString());
-						
+						*/
 						String amount = lendingsTable.getValueAt(selectedRow, 1).toString();
 						String period = lendingsTable.getValueAt(selectedRow, 2).toString();
 						selectedLending = signedInAccount.getSelectedTransaction(amount, period, "class Lending");

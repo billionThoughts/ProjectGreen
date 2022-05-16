@@ -133,6 +133,7 @@ public class RegisterFrame extends JFrame {
 							if(password.length() >= 8) {
 								UserAccount acc = new UserAccount(firstName, lastName, email, username, password);
 								db.addUserAccount(acc);
+								JOptionPane.showMessageDialog(null, "Successful registration!");
 								new SignInFrame();
 								dispose();
 							}
