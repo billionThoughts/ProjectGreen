@@ -54,12 +54,9 @@ public class DataBase {
 	}
 	
 	public boolean userAccountsDeserialization() {
-		try {
-			FileInputStream fileIn = new FileInputStream("userAccounts.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+		try (FileInputStream fileIn = new FileInputStream("userAccounts.ser");
+				ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			userAccounts = (ArrayList<UserAccount>) in.readObject();
-			in.close();
-			fileIn.close();
 		} catch (FileNotFoundException e) {
 			return false;
 		} catch (IOException e) {
@@ -71,12 +68,9 @@ public class DataBase {
 	}
 	
 	public void userAccountsSerialization() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("userAccounts.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream("userAccounts.ser");
+				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(userAccounts);
-			out.close();
-			fileOut.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("userAccounts.ser File Not Found (DataBase userAccounts serialization)");
 		} catch (IOException e) {
@@ -116,12 +110,9 @@ public class DataBase {
 	}
 	
 	public boolean materialsDeserialization() {
-		try {
-			FileInputStream fileIn = new FileInputStream("materials.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+		try (FileInputStream fileIn = new FileInputStream("materials.ser");
+				ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			materials = (ArrayList<Material>) in.readObject();
-			in.close();
-			fileIn.close();
 		} catch (FileNotFoundException e) {
 			return false;
 		} catch (IOException e) {
@@ -133,12 +124,9 @@ public class DataBase {
 	}
 	
 	public void materialsSerialization() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("materials.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream("materials.ser");
+				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(materials);
-			out.close();
-			fileOut.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("materials.ser File Not Found (DataBase materials serialization)");
 		} catch (IOException e) {
@@ -152,12 +140,9 @@ public class DataBase {
 	}
 	
 	public boolean ticketsDeserialization() {
-		try {
-			FileInputStream fileIn = new FileInputStream("tickets.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+		try (FileInputStream fileIn = new FileInputStream("tickets.ser");
+				ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			tickets = (ArrayList<Ticket>) in.readObject();
-			in.close();
-			fileIn.close();
 		} catch (FileNotFoundException e) {
 			return false;
 		} catch (IOException e) {
@@ -169,12 +154,9 @@ public class DataBase {
 	}
 	
 	public void ticketsSerialization() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("tickets.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream("tickets.ser");
+				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(tickets);
-			out.close();
-			fileOut.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("tickets.ser File Not Found (DataBase tickets serialization)");
 		} catch (IOException e) {
@@ -188,12 +170,9 @@ public class DataBase {
 	}
 	
 	public boolean donationsDeserialization() {
-		try {
-			FileInputStream fileIn = new FileInputStream("donations.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+		try (FileInputStream fileIn = new FileInputStream("donations.ser");
+				ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			donations = (int) in.readObject();
-			in.close();
-			fileIn.close();
 		} catch (FileNotFoundException e) {
 			return false;
 		} catch (IOException e) {
@@ -205,12 +184,9 @@ public class DataBase {
 	}
 	
 	public void donationsSerialization() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("donations.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream("donations.ser");
+				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(donations);
-			out.close();
-			fileOut.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("donations.ser File Not Found (DataBase donations serialization)");
 		} catch (IOException e) {
