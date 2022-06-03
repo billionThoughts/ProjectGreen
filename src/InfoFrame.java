@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class InfoFrame extends JFrame {
@@ -21,7 +22,7 @@ public class InfoFrame extends JFrame {
 		titleLabel = new JLabel("Info");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setBounds(0, 11, 784, 36);
+		titleLabel.setBounds(0, 23, 860, 36);
 		panel.add(titleLabel);
 		
 		backButton = new JButton("Home");
@@ -41,8 +42,15 @@ public class InfoFrame extends JFrame {
 		});
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(200, 150, 465, 103);
+		scrollPane.setBounds(200, 173, 465, 103);
 		infoTable = new JTable(loadData());
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		for(int i=0; i<infoTable.getColumnCount(); i++) {
+			infoTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
+		
 		infoTable.setEnabled(false);
 		scrollPane.setViewportView(infoTable);
 		//scrollPane.setPreferredSize(new Dimension(400, 103));

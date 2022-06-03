@@ -21,7 +21,7 @@ public class RedemptFrame extends JFrame {
 		titleLabel = new JLabel("Use Tokens");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setBounds(0, 11, 827, 37);
+		titleLabel.setBounds(0, 11, 856, 37);
 		panel.add(titleLabel);
 		
 		homeButton = new JButton("Home");

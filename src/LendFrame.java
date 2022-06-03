@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class LendFrame extends JFrame {
@@ -30,7 +31,7 @@ public class LendFrame extends JFrame {
 		titleLabel = new JLabel("Lend Tokens");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setBounds(0, 11, 827, 36);
+		titleLabel.setBounds(0, 11, 856, 36);
 		panel.add(titleLabel);
 		
 		homeButton = new JButton("Home");
@@ -87,6 +88,7 @@ public class LendFrame extends JFrame {
 					db.saveSignedInAccount(signedInAccount);
 					
 					lendingsTable.setModel(loadData());
+					customizeTable();
 				}
 				else JOptionPane.showMessageDialog(null, "You don't have enough tokens",
 						"Lending Error", JOptionPane.ERROR_MESSAGE);
@@ -100,14 +102,16 @@ public class LendFrame extends JFrame {
 
 		scrollPane = new JScrollPane();
 		lendingsTable = new JTable(this.loadData());
+		customizeTable();
+		
 		//lending selection
 		lendingsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    ListSelectionModel listModel = lendingsTable.getSelectionModel();
 	    LendingSelectionListener listListener = new LendingSelectionListener();
 	    listModel.addListSelectionListener(listListener);
-		
-		scrollPane.getViewport().add(lendingsTable);
-		scrollPane.setBounds(91, 281, 349, 103);
+		scrollPane.setViewportView(lendingsTable);
+		scrollPane.setPreferredSize(new Dimension(400, 183));
+		scrollPane.setBounds(91, 281, 435, 103);
 		panel.add(scrollPane);
 		
 		withdrawButton = new JButton("Withdraw");
@@ -127,6 +131,7 @@ public class LendFrame extends JFrame {
 					db.saveSignedInAccount(signedInAccount);
 					
 					lendingsTable.setModel(loadData());
+					customizeTable();
 					JOptionPane.showMessageDialog(null, "Successful withdraw, you get back " + amount + " tokens");
 					selectedLending = null;
 				}
@@ -169,6 +174,22 @@ public class LendFrame extends JFrame {
 			}
 		}
 		return new DefaultTableModel(data, columnNames);
+	}
+	
+	private void customizeTable() {
+		lendingsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		lendingsTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		lendingsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+		lendingsTable.getColumnModel().getColumn(2).setPreferredWidth(160);
+		lendingsTable.getColumnModel().getColumn(3).setPreferredWidth(38);
+		lendingsTable.getColumnModel().getColumn(4).setPreferredWidth(64);
+		lendingsTable.getColumnModel().getColumn(5).setPreferredWidth(85);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		for(int i=0; i<lendingsTable.getColumnCount(); i++) {
+			lendingsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
 	}
 	
 	class LendingSelectionListener implements ListSelectionListener {

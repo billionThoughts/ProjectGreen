@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class BorrowFrame extends JFrame {
@@ -31,7 +32,7 @@ public class BorrowFrame extends JFrame {
 		titleLabel = new JLabel("Borrow Tokens");
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(0, 11, 827, 37);
+		titleLabel.setBounds(0, 11, 856, 37);
 		panel.add(titleLabel);
 		
 		homeButton = new JButton("Home");
@@ -109,6 +110,7 @@ public class BorrowFrame extends JFrame {
 						db.saveSignedInAccount(signedInAccount);
 						
 						borrowingsTable.setModel(loadData());
+						customizeTable();
 					}
 				}
 			}
@@ -121,6 +123,7 @@ public class BorrowFrame extends JFrame {
 		
 		scrollPane = new JScrollPane();
 		borrowingsTable = new JTable(this.loadData());
+		customizeTable();
 		//borrowing selection
 		borrowingsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    ListSelectionModel listModel = borrowingsTable.getSelectionModel();
@@ -148,6 +151,7 @@ public class BorrowFrame extends JFrame {
 						db.saveSignedInAccount(signedInAccount);
 					
 						borrowingsTable.setModel(loadData());
+						customizeTable();
 						JOptionPane.showMessageDialog(null, "Successful pay back, you paid " + amount + " tokens");
 						selectedBorrowing = null;
 					}
@@ -192,6 +196,21 @@ public class BorrowFrame extends JFrame {
 			}
 		}
 		return new DefaultTableModel(data, columnNames);
+	}
+	
+	private void customizeTable() {
+		borrowingsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		borrowingsTable.getColumnModel().getColumn(0).setPreferredWidth(25);
+		borrowingsTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+		borrowingsTable.getColumnModel().getColumn(2).setPreferredWidth(160);
+		borrowingsTable.getColumnModel().getColumn(3).setPreferredWidth(45);
+		borrowingsTable.getColumnModel().getColumn(4).setPreferredWidth(116);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		for(int i=0; i<borrowingsTable.getColumnCount(); i++) {
+			borrowingsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
 	}
 	
 	class BorrowingSelectionListener implements ListSelectionListener {

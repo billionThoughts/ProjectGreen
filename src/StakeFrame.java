@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class StakeFrame extends JFrame {
@@ -45,7 +46,7 @@ public class StakeFrame extends JFrame {
 		titleLabel = new JLabel("Stake Tokens");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		titleLabel.setBounds(0, 11, 827, 35);
+		titleLabel.setBounds(0, 11, 856, 35);
 		panel.add(titleLabel);
 		
 		stakeLabel = new JLabel("Stake your tokens to earn passive rewards");
@@ -87,6 +88,7 @@ public class StakeFrame extends JFrame {
 					signedInAccount.makeTransaction(t);
 					db.saveSignedInAccount(signedInAccount);
 					stakingsTable.setModel(loadData());
+					customizeTable();
 				}
 				else JOptionPane.showMessageDialog(null, "You don't have enough tokens",
 						"Staking Error", JOptionPane.ERROR_MESSAGE);
@@ -94,6 +96,7 @@ public class StakeFrame extends JFrame {
 		});
 		
 		stakingsTable = new JTable(this.loadData());
+		customizeTable();
 		
 		//staking selection
 		stakingsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -101,7 +104,7 @@ public class StakeFrame extends JFrame {
 	    listModel.addListSelectionListener(new StakingSelectionListener());
 	    
 	    scrollPane = new JScrollPane();
-		scrollPane.getViewport().add(stakingsTable);
+		scrollPane.setViewportView(stakingsTable);
 		scrollPane.setPreferredSize(new Dimension(400, 183));
 		scrollPane.setBounds(109, 256, 435, 103);
 		panel.add(scrollPane);
@@ -128,6 +131,7 @@ public class StakeFrame extends JFrame {
 						db.saveSignedInAccount(signedInAccount);
 						
 						stakingsTable.setModel(loadData());
+						customizeTable();
 						JOptionPane.showMessageDialog(null, "Successful unstake, you get " + amount + " tokens!");
 						selectedStaking = null;
 					}
@@ -171,6 +175,22 @@ public class StakeFrame extends JFrame {
 			}
 		}
 		return new DefaultTableModel(data, columnNames);
+	}
+	
+	private void customizeTable() {
+		stakingsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		stakingsTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		stakingsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+		stakingsTable.getColumnModel().getColumn(2).setPreferredWidth(160);
+		stakingsTable.getColumnModel().getColumn(3).setPreferredWidth(38);
+		stakingsTable.getColumnModel().getColumn(4).setPreferredWidth(64);
+		stakingsTable.getColumnModel().getColumn(5).setPreferredWidth(85);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		for(int i=0; i<stakingsTable.getColumnCount(); i++) {
+			stakingsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
 	}
 	
 	class StakingSelectionListener implements ListSelectionListener {
