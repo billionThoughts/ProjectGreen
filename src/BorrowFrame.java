@@ -93,25 +93,31 @@ public class BorrowFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int amount = Integer.parseInt(amountField.getText());
-				int period = Integer.parseInt(periodField.getText());
-				
-				if(amount > 10000 || period > 3) {
-					JOptionPane.showMessageDialog(null, "Amount or period not accepted");
-				}
-				else {
-					if((signedInAccount.calculateTotalBorrowings() + amount) > 10000) {
-						JOptionPane.showMessageDialog(null, "Borrow Limit 10000 Tokens", 
-								"Borrow Error", JOptionPane.ERROR_MESSAGE);
+				if((amountField.getText().length() != 0) && (periodField.getText().length() != 0)) {
+					int amount = Integer.parseInt(amountField.getText());
+					int period = Integer.parseInt(periodField.getText());
+					
+					if(amount > 10000 || period > 3) {
+						JOptionPane.showMessageDialog(null, "Amount or period not accepted");
 					}
 					else {
-						Transaction t = new Borrowing(amount, period);
-						signedInAccount.makeTransaction(t);
-						db.saveSignedInAccount(signedInAccount);
-						
-						borrowingsTable.setModel(loadData());
-						customizeTable();
+						if((signedInAccount.calculateTotalBorrowings() + amount) > 10000) {
+							JOptionPane.showMessageDialog(null, "Borrow Limit 10000 Tokens", 
+									"Borrow Error", JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							Transaction t = new Borrowing(amount, period);
+							signedInAccount.makeTransaction(t);
+							db.saveSignedInAccount(signedInAccount);
+							
+							borrowingsTable.setModel(loadData());
+							customizeTable();
+						}
 					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please insert amount and period", 
+							"Borrow Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

@@ -12,7 +12,7 @@ public class UserAccount implements Serializable {
 	private String username;
 	private String password;
 	private int tokens;
-	private HashMap<Material, Integer> recycled;
+	private HashMap<Material, Integer> recycled; //Map of recyclable materials and their quantity
 	private ArrayList<Transaction> transactions;
 	
 	public UserAccount (String firstName, String lastName, String email, String username, String password) {
@@ -56,10 +56,15 @@ public class UserAccount implements Serializable {
 		return tokens;
 	}
 	
+	public void setTokens(int amount) {
+		tokens = amount;
+	}
+	
 	public ArrayList<Transaction> getTransactions(){
 		return transactions;
 	}
 	
+	//Adds the reward of the material to users tokens and increases recyclable material quantity by 1 in map recycled
 	public void recycleMaterial(Material m) {
 		this.tokens += m.getReward();
 		
@@ -72,6 +77,7 @@ public class UserAccount implements Serializable {
 		}
 	}
 	
+	//Checks if tokens are enough to buy ticket
 	public boolean isTicketAffordable(Ticket t) {
 		boolean flag = false;
 		if(tokens >= t.getCost())
@@ -83,6 +89,7 @@ public class UserAccount implements Serializable {
 		this.tokens -= t.getCost();
 	}
 	
+	//Checks if tokens are enough and donates the amount, else returns false
 	public boolean donateTokens(int amount) {
 		if(tokens>=amount) {
 			this.tokens -= amount;
@@ -95,6 +102,7 @@ public class UserAccount implements Serializable {
 		transactions.add(t);
 	}
 	
+	//Removes transaction t from transactions list
 	public void removeTransaction(Transaction t) {
 		Transaction trToRemove = null;
 		for(Transaction transaction : transactions) {
@@ -105,6 +113,7 @@ public class UserAccount implements Serializable {
 		transactions.remove(trToRemove);
 	}
 	
+	//Increases or decreases tokens by the transaction amount and adds transaction to the transactions list
 	public void makeTransaction(Transaction t) {
 		if(t instanceof Staking) {
 			this.tokens -= t.getAmount();
@@ -118,6 +127,10 @@ public class UserAccount implements Serializable {
 		this.addTransaction(t);
 	}
 	
+	/*
+	 * Increases or decreases tokens by the transaction amount, 
+	 * removes transaction from the transactions list, returns amount to pay 
+	 */
 	public int undoTransaction(Transaction t) {
 		if(t instanceof Staking) {
 			this.tokens += t.payment();
@@ -133,6 +146,7 @@ public class UserAccount implements Serializable {
 		return t.payment();
 	}
 	
+	//Looks for a transaction in transactions list and returns it
 	public Transaction getSelectedTransaction(String amount, String period, String classType) {
 		Transaction selectedTransaction = null;
 		for(Transaction t : transactions) {
@@ -147,6 +161,7 @@ public class UserAccount implements Serializable {
 		return selectedTransaction;
 	}
 	
+	//Calculates the total amount of tokens user has borrowed
 	public int calculateTotalBorrowings() {
 		int sum = 0;
 		for(Transaction t : transactions) {
@@ -157,6 +172,7 @@ public class UserAccount implements Serializable {
 		return sum;
 	}
 	
+	//Checks if tokens are enough to pay back a borrowing
 	public boolean isPayBackAffordable(Transaction t) {
 		if(tokens >= t.payment()) {
 			return true;

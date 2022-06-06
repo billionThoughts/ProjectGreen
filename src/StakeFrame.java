@@ -81,17 +81,25 @@ public class StakeFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int amount = Integer.parseInt(amountField.getText());
-				
-				if(amount <= signedInAccount.getTokens()) {
-					Transaction t = new Staking(amount);
-					signedInAccount.makeTransaction(t);
-					db.saveSignedInAccount(signedInAccount);
-					stakingsTable.setModel(loadData());
-					customizeTable();
+				if(amountField.getText().length() != 0){
+					int amount = Integer.parseInt(amountField.getText());
+					
+					if(amount <= signedInAccount.getTokens()) {
+						Transaction t = new Staking(amount);
+						signedInAccount.makeTransaction(t);
+						db.saveSignedInAccount(signedInAccount);
+						stakingsTable.setModel(loadData());
+						customizeTable();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "You don't have enough tokens",
+								"Staking Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				else JOptionPane.showMessageDialog(null, "You don't have enough tokens",
-						"Staking Error", JOptionPane.ERROR_MESSAGE);
+				else {
+					JOptionPane.showMessageDialog(null, "Please insert amount", 
+							"Stake Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		

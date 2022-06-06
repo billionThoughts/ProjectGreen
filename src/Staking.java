@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class Staking extends Transaction {
-	private int period;
+	private int period; //duration of period in months, default is 1
 
 	public Staking(int amount) {
 		super(amount);
@@ -12,12 +12,8 @@ public class Staking extends Transaction {
 		this.periodEnd = periodStart.plusMonths(period);
 	}
 	
-	public String getPeriodStartString() {
-		return periodStart.toString();
-	}
-	
-	public String getPeriodEndString() {
-		return periodEnd.toString();
+	public int getPeriod() {
+		return period;
 	}
 	
 	public String getStringPeriod() {
@@ -29,10 +25,7 @@ public class Staking extends Transaction {
 		return (int) (amount*interest);
 	}
 	
-	public int getTotalAmount() {
-		return amount + this.getInterestAmount();
-	}
-	
+	//Checks if period is completed
 	public boolean isStakePeriodCompleted() {
 		if(periodEnd.equals(LocalDate.now(ZoneId.of("GMT+3")))){
 			return true;
@@ -40,13 +33,12 @@ public class Staking extends Transaction {
 		return false;
 	}
 	
+	//Checks if period is completed and returns the counterpart amount to be paid.
 	public int payment() {
-		int amountToPay = 0;
-		LocalDate today = LocalDate.now(ZoneId.of("GMT+3"));
-		if(today.compareTo(periodEnd) >= 0) {
-			amountToPay = getTotalAmount();
+		if(isStakePeriodCompleted()) {
+			return getTotalAmount();
 		}
-		else amountToPay = amount;
-		return amountToPay;
+		else return amount;
 	}
+
 }

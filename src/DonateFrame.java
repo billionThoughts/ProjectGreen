@@ -80,18 +80,24 @@ public class DonateFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String amountText = amountField.getText();
-				int amount = Integer.parseInt(amountText);
-				
-				if(db.tokenDonation(amount, signedInAccount)) {
-					db.saveSignedInAccount(signedInAccount);
-					tokensLabel.setText("Tokens: " + signedInAccount.getTokens());
-					allDonationsLabel.setText("All donations: " + db.getDonations());
-					JOptionPane.showMessageDialog(null, "You donated " + amount + " tokens!");
+				if(amountField.getText().length() != 0){
+					String amountText = amountField.getText();
+					int amount = Integer.parseInt(amountText);
+					
+					if(db.tokenDonation(amount, signedInAccount)) {
+						db.saveSignedInAccount(signedInAccount);
+						tokensLabel.setText("Tokens: " + signedInAccount.getTokens());
+						allDonationsLabel.setText("All donations: " + db.getDonations());
+						JOptionPane.showMessageDialog(null, "You donated " + amount + " tokens!");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "You cannot afford to donate this amount",
+								"Donation Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "You cannot afford to donate this amount",
-							"Donation Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please insert amount", 
+							"Donate Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

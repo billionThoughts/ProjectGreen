@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DataBase {
-	private static DataBase instance = new DataBase();
+	private static DataBase instance = new DataBase(); //The only instance of DataBase class
 	private ArrayList<UserAccount> userAccounts;
 	private ArrayList<Material> materials;
 	private ArrayList<Ticket> tickets;
@@ -35,6 +35,7 @@ public class DataBase {
 		return materials;
 	}
 	
+	//Looks for a material by its name and returns it
 	public Material getSpecificMaterial(String name) {
 		Material m = null;
 		for(Material material : materials) {
@@ -44,6 +45,7 @@ public class DataBase {
 		return m;
 	}
 	
+	//Looks for a ticket by its name and returns it
 	public Ticket getSpecificTicket(String name) {
 		Ticket t = null;
 		for(Ticket ticket : tickets) {
@@ -78,6 +80,7 @@ public class DataBase {
 		}
 	}
 	
+	//Checks if given username and email are already used for an account
 	public boolean checkParticularsAvailability(String username, String email) {
 		for(UserAccount acc : userAccounts) {
 			if(username.equals(acc.getUsername()) || email.equals(acc.getEmail())) {
@@ -92,6 +95,10 @@ public class DataBase {
 		this.userAccountsSerialization();
 	}
 	
+	/*
+	 * Updates userAccounts list with the changes happened in signedInAccount 
+	 * and stores new list in file
+	 */
 	public void saveSignedInAccount(UserAccount signedInAccount) {
 		for(UserAccount a : userAccounts) {
 			if(a.getUsername().equals(signedInAccount.getUsername()))
@@ -100,6 +107,7 @@ public class DataBase {
 		this.userAccountsSerialization();
 	}
 	
+	//Looks for an account having the given username and password and returns it, or returns null
 	public UserAccount authentication(String username, String password) {
 		for(UserAccount acc : userAccounts) {
 			if(username.equals(acc.getUsername()) && password.equals(acc.getPassword())) {
@@ -194,6 +202,10 @@ public class DataBase {
 		}
 	}
 	
+	/*
+	 * Checks if account has enough tokens to donate
+	 *  the given amount and updates donations, or returns false
+	 */
 	public boolean tokenDonation(int amount, UserAccount signedInAccount) {
 		if(signedInAccount.donateTokens(amount)) {
 			this.donations += amount;

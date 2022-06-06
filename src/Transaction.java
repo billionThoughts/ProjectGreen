@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 public abstract class Transaction implements Serializable {
 	protected int amount;
-	protected double APY;
+	protected double APY; //Anual Percentage Yield
 	protected LocalDate periodStart;
 	protected LocalDate periodEnd;
 	
@@ -25,13 +25,19 @@ public abstract class Transaction implements Serializable {
 	
 	public abstract String getStringPeriod();
 	
-	public abstract String getPeriodStartString();
+	public String getPeriodStartString() {
+		return periodStart.toString();
+	}
 	
-	public abstract String getPeriodEndString();
-	
-	public abstract int getTotalAmount();
+	public String getPeriodEndString() {
+		return periodEnd.toString();
+	}
 	
 	public abstract int getInterestAmount();
+	
+	public int getTotalAmount() {
+		return this.amount + this.getInterestAmount();
+	}
 	
 	public abstract int payment();
 }

@@ -80,18 +80,26 @@ public class LendFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int amount = Integer.parseInt(amountField.getText());
-				
-				if(amount <= signedInAccount.getTokens()) {
-					Transaction t = new Lending(amount);
-					signedInAccount.makeTransaction(t);
-					db.saveSignedInAccount(signedInAccount);
+				if(amountField.getText().length() != 0){
+					int amount = Integer.parseInt(amountField.getText());
 					
-					lendingsTable.setModel(loadData());
-					customizeTable();
+					if(amount <= signedInAccount.getTokens()) {
+						Transaction t = new Lending(amount);
+						signedInAccount.makeTransaction(t);
+						db.saveSignedInAccount(signedInAccount);
+						
+						lendingsTable.setModel(loadData());
+						customizeTable();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "You don't have enough tokens",
+								"Lending Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				else JOptionPane.showMessageDialog(null, "You don't have enough tokens",
-						"Lending Error", JOptionPane.ERROR_MESSAGE);
+				else {
+					JOptionPane.showMessageDialog(null, "Please insert amount", 
+							"Lend Error", JOptionPane.ERROR_MESSAGE);
+				}		
 			}
 		});
 		

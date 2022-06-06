@@ -13,24 +13,12 @@ public class Borrowing extends Transaction {
 		this.periodEnd = periodStart.plusMonths(period);
 	}
 	
-	public String getPeriodStartString() {
-		return periodStart.toString();
-	}
-	
-	public String getPeriodEndString() {
-		return periodEnd.toString();
-	}
-	
 	public String getStringPeriod() {
 		return (periodStart.toString() + " - " + periodEnd.toString());
 	}
 
 	public int getInterestAmount() {
 		return (int) (amount*(APY/12)*(period));
-	}
-
-	public int getTotalAmount() {
-		return amount + this.getInterestAmount();
 	}
 	
 	public int payment() {

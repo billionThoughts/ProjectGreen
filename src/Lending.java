@@ -11,17 +11,9 @@ public class Lending extends Transaction {
 		this.periodEnd = LocalDate.now(ZoneId.of("GMT+3"));
 	}
 	
+	//Assigns today's date to periodEnd
 	public void setPeriodEnd() {
 		this.periodEnd = LocalDate.now(ZoneId.of("GMT+3"));
-	}
-	
-	public String getPeriodStartString() {
-		return periodStart.toString();
-	}
-	
-	public String getPeriodEndString() {
-		this.setPeriodEnd();
-		return periodEnd.toString();
 	}
 	
 	public String getStringPeriod() {
@@ -29,15 +21,15 @@ public class Lending extends Transaction {
 		return (periodStart.toString() + " - " + periodEnd.toString());
 	}
 
-	public int getTotalAmount() {
-		return this.amount + this.getInterestAmount();
-	}
-
+	/*
+	 * Calculates the real period between the date when the transaction happened and today
+	 *  and returns the interest based on the real period
+	 */
 	public int getInterestAmount() {
 		int realPeriod = (int) ChronoUnit.MONTHS.between(periodStart, periodEnd);
 		return (int) (amount*(APY/12)*realPeriod);
 	}
-
+	
 	public int payment() {
 		this.setPeriodEnd();
 		return this.getTotalAmount();
