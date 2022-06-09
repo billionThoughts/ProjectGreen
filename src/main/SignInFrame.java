@@ -3,11 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.*;
 
 public class SignInFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JLabel signInLabel, ecoSystemsLabel, imageLabel, usernameLabel, passwordLabel;
 	private JTextField usernameField;

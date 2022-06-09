@@ -1,12 +1,11 @@
 package main;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class UserAccount implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String email;

@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class LendFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private UserAccount signedInAccount;
 	private JPanel panel;
 	private JLabel titleLabel, lendLabel, amountLabel, apyLabel, depositsLabel, backgroundIconLabel;
@@ -214,7 +215,7 @@ public class LendFrame extends JFrame {
 					if(lendingsTable.getValueAt(selectedRow, 0) != null) {
 						String amount = lendingsTable.getValueAt(selectedRow, 1).toString();
 						String period = lendingsTable.getValueAt(selectedRow, 2).toString();
-						selectedLending = signedInAccount.getSelectedTransaction(amount, period, "class Lending");
+						selectedLending = signedInAccount.getSelectedTransaction(amount, period, "class main.Lending");
 					}
 					else selectedLending = null;
 			  }

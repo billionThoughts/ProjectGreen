@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class HomeFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private UserAccount signedInAccount;
 	private JPanel panel;
 	private JLabel profileIconLabel, usernameLabel, tokensLabel, recycleLabel, backgroundLabel;
@@ -251,6 +252,7 @@ public class HomeFrame extends JFrame {
 	}
 	
 	class FirstRecycleFrame extends JFrame {
+		private static final long serialVersionUID = 1L;
 		private JPanel panel;
 		private JLabel titleLabel, firstRecycleLabel, secondRecycleLabel, backgroundIconLabel;
 		private JButton recycleButton, homeButton;
@@ -327,6 +329,7 @@ public class HomeFrame extends JFrame {
 	}
 	
 	class SecondRecycleFrame extends JFrame {
+		private static final long serialVersionUID = 1L;
 		private JPanel panel;
 		private JLabel recycleLabel, firstLabel, secondLabel, thirdLabel, backgroundIconLabel;
 		private JButton homeButton;
@@ -338,6 +341,11 @@ public class HomeFrame extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					secondLabel.setText("Materials accepted.");
 					thirdLabel.setText("Congratulations you earn " + m.getReward() + " Tokens!");
+					
+					  homeButton.setOpaque(true);
+					  homeButton.setContentAreaFilled(true);
+					  homeButton.setBorderPainted(true);
+					  homeButton.setText("Home");
 				}
 			});
 			
@@ -355,6 +363,12 @@ public class HomeFrame extends JFrame {
 			homeButton.setBackground(new Color(255, 153, 102));
 			homeButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 			homeButton.setBounds(10, 455, 97, 36);
+			
+			homeButton.setOpaque(false);
+			homeButton.setContentAreaFilled(false);
+			homeButton.setBorderPainted(false);
+			homeButton.setText("");
+			
 			panel.add(homeButton);
 			
 			//ActionListener for homeButton

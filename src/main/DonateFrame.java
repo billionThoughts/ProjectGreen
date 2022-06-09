@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class DonateFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panel, actionsPanel;
 	private JLabel titleLabel, donationLabel, amountLabel;
 	private JLabel actionsLabel, treesLabel, beachesLabel, roadsLabel, backgroundIconLabel;

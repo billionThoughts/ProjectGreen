@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class RegisterFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JLabel titleLabel, firstNameLabel, lastNameLabel, emailLabel, usernameLabel, passwordLabel, confirmPasswordLabel, imageLabel;
 	private JTextField firstNameField, lastNameField, emailField, usernameField, passwordField, confirmPasswordField;

@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class StakeFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private UserAccount signedInAccount;
 	private JPanel panel;
 	private JLabel titleLabel, stakeLabel, amountLabel, apyLabel, backgroundIconLabel;
@@ -215,7 +216,7 @@ public class StakeFrame extends JFrame {
 				if((stakingsTable.getValueAt(selectedRow, 0) != null)) {
 					String amount = stakingsTable.getValueAt(selectedRow, 1).toString();	
 					String period = stakingsTable.getValueAt(selectedRow, 2).toString();
-					selectedStaking = signedInAccount.getSelectedTransaction(amount, period, "class Staking");
+					selectedStaking = signedInAccount.getSelectedTransaction(amount, period, "class main.Staking");
 				}
 				else selectedStaking = null;
 			 }

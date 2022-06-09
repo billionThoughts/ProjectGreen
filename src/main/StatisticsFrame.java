@@ -1,6 +1,5 @@
 package main;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.event.ActionEvent;
@@ -18,6 +17,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class StatisticsFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JLabel titleLabel, statisticsLabel;
 	private JButton homeButton;

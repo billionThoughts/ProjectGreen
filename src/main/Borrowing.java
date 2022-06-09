@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class Borrowing extends Transaction {
+	private static final long serialVersionUID = 1L;
 	private int period;
 
 	public Borrowing(int amount, int period) {

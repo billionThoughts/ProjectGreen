@@ -4,7 +4,8 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 public class Lending extends Transaction {
-	
+	private static final long serialVersionUID = 1L;
+
 	public Lending(int amount) {
 		super(amount);
 		this.APY = 0.192;

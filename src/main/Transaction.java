@@ -3,6 +3,7 @@ import java.io.*;
 import java.time.LocalDate;
 
 public abstract class Transaction implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected int amount;
 	protected double APY; //Anual Percentage Yield
 	protected LocalDate periodStart;

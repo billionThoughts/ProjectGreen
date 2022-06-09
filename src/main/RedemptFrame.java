@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class RedemptFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private UserAccount signedInAccount;
 	private JPanel panel;
 	private JLabel titleLabel, parkingLabel, cinemaLabel, transportationLabel, bikeLabel, backgroundIconLabel;
@@ -145,6 +146,7 @@ public class RedemptFrame extends JFrame {
 	}
 	
 	class QRFrame extends JFrame {
+		private static final long serialVersionUID = 1L;
 		private JPanel panel;
 		private JLabel titleLabel, redemptLabel_1, redemptLabel_2, redemptLabel_3, redemptLabel_4, backgroundIconLabel;
 		private JButton homeButton;

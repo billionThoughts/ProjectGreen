@@ -1,6 +1,5 @@
 package main;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class InfoFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JLabel titleLabel, backgroundIconLabel;
 	private JButton backButton;

@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class Staking extends Transaction {
+	private static final long serialVersionUID = 1L;
 	private int period; //duration of period in months, default is 1
 
 	public Staking(int amount) {

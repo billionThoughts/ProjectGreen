@@ -12,9 +12,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class BorrowFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private UserAccount signedInAccount;
 	private JPanel panel;
-	private JLabel titleLabel, borrowLabel, amountLabel, apyLabel, periodLabel, borrowingsLabel, backgroundIconLabel;
+	private JLabel titleLabel, borrowLabel, amountLabel, apyLabel, periodLabel, borrowingsLabel, 
+					backgroundIconLabel, maxPeriodLabel, maxAmount;
 	private JButton homeButton, borrowButton, payBackButton;
 	private JTextField amountField, periodField;
 	private JTable borrowingsTable;
@@ -63,15 +65,19 @@ public class BorrowFrame extends JFrame {
 		amountLabel.setBounds(87, 142, 194, 14);
 		panel.add(amountLabel);
 		
+		apyLabel = new JLabel("12,5% APY");
+		apyLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		apyLabel.setBounds(308, 139, 69, 20);
+		panel.add(apyLabel);
+		
 		amountField = new JTextField();
 		amountField.setBounds(87, 156, 199, 20);
 		amountField.setColumns(10);
 		panel.add(amountField);
 		
-		apyLabel = new JLabel("12,5% APY");
-		apyLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		apyLabel.setBounds(308, 156, 69, 20);
-		panel.add(apyLabel);
+		maxAmount = new JLabel("Max amount 10000");
+		maxAmount.setBounds(308, 159, 170, 14);
+		panel.add(maxAmount);
 		
 		periodLabel = new JLabel("PERIOD OF BORROWING");
 		periodLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
@@ -82,6 +88,10 @@ public class BorrowFrame extends JFrame {
 		periodField.setBounds(87, 205, 199, 20);
 		periodField.setColumns(10);
 		panel.add(periodField);
+		
+		maxPeriodLabel = new JLabel("Max period 3 months");
+		maxPeriodLabel.setBounds(308, 208, 170, 17);
+		panel.add(maxPeriodLabel);
 		
 		borrowButton = new JButton("Borrow");
 		borrowButton.setBackground(new Color(0, 204, 255));
@@ -233,7 +243,7 @@ public class BorrowFrame extends JFrame {
 					if(borrowingsTable.getValueAt(selectedRow, 0) != null) {
 						String amount = borrowingsTable.getValueAt(selectedRow, 1).toString();
 						String period = borrowingsTable.getValueAt(selectedRow, 2).toString();
-						selectedBorrowing = signedInAccount.getSelectedTransaction(amount, period, "class Borrowing");
+						selectedBorrowing = signedInAccount.getSelectedTransaction(amount, period, "class main.Borrowing");
 					}
 					else selectedBorrowing = null;
 			  }
